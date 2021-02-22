@@ -1,22 +1,16 @@
 package com.wise.sgm.service;
 
-import com.wise.sgm.model.domain.ImportMailingFile;
 import com.wise.sgm.model.domain.MailingType;
-import com.wise.sgm.model.enums.ImportStatus;
-import com.wise.sgm.repository.ImportMailingFileRepository;
 import com.wise.sgm.repository.MailingTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.swing.text.html.Option;
 import javax.xml.bind.ValidationException;
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
 import java.util.Optional;
 
 @Service
