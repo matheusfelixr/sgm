@@ -32,7 +32,7 @@ public class ImportMailingFileService {
             importMailingFile.setFile(multipartFile.getBytes());
             importMailingFile.setNameFile(multipartFile.getOriginalFilename());
 
-            this.verifyExistsFile(multipartFile.getBytes());
+            this.verifyRegisteredFile(multipartFile.getBytes());
 
             //import linhas da tabela
 
@@ -94,7 +94,7 @@ public class ImportMailingFileService {
         return this.save(importMailingFile.get());
     }
 
-    public void verifyExistsFile(byte[] file) throws Exception {
+    public void verifyRegisteredFile(byte[] file) throws Exception {
         ImportMailingFile importMailingFile = new ImportMailingFile();
         importMailingFile.setFile(file);
         importMailingFile.setImportStatus(ImportStatus.SUCCESS);

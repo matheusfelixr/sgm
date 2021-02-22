@@ -11,32 +11,18 @@ import java.io.Serializable;
 @SequenceGenerator(name = "SEQ_MAILING_TYPE", sequenceName = "SEQ_MAILING_TYPE")
 public class MailingType implements Serializable {
 
-    private static final long serialVersionUID = -908898951490523860L;
+    private static final long serialVersionUID = -12312351490523860L;
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_MAILING_TYPE")
     private Long id;
 
-    @Column(name = "DESCRIPTION", nullable = true)
-    private String description;
-
-    @Column(name = "FORMAT", nullable = true)
-    private String[] format;
-
-    @Embedded
-    private CancellationImpl cancellation;
+    @Column(name = "LAYOUT", nullable = true)
+    private String layout;
 
     @Embedded
     private DataControlImpl dataControl;
-
-
-    public CancellationImpl getCancellation() {
-        if (this.cancellation == null) {
-            cancellation = new CancellationImpl();
-        }
-        return cancellation;
-    }
 
     public DataControlImpl getDataControl() {
         if (this.dataControl == null) {
