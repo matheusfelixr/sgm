@@ -1,13 +1,13 @@
 package com.wise.sgm.model.enums;
 
-public enum ImportStatus {
+public enum ImportStatusEnum {
 
     SUCCESS("Sucesso"),
     FAIL("Falha");
 
     private String description;
 
-    private ImportStatus(String description) {
+    private ImportStatusEnum(String description) {
         this.description = description;
     }
 

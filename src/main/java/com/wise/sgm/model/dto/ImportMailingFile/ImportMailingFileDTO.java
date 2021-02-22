@@ -3,7 +3,7 @@ package com.wise.sgm.model.dto.ImportMailingFile;
 import com.wise.sgm.model.domain.ImportMailingFile;
 import com.wise.sgm.model.dto.cancellation.CancellationDTO;
 import com.wise.sgm.model.dto.dataControl.DataControlDTO;
-import com.wise.sgm.model.enums.ImportStatus;
+import com.wise.sgm.model.enums.ImportStatusEnum;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class ImportMailingFileDTO {
 
     private String nameFile;
 
-    private ImportStatus importStatus;
+    private ImportStatusEnum importStatusEnum;
 
     private String error;
 
@@ -36,7 +36,7 @@ public class ImportMailingFileDTO {
         ret.setId(dto.getId());
         ret.setStartDate(dto.getStartDate());
         ret.setNameFile(dto.getNameFile());
-        ret.setImportStatus(dto.getImportStatus());
+        ret.setImportStatusEnum(dto.getImportStatusEnum());
         ret.setError(dto.getError());
         ret.setCancellation(CancellationDTO.convertToEntity(dto.getCancellation()));
         ret.setDataControl(DataControlDTO.convertToEntity(dto.getDataControl()));
@@ -48,7 +48,7 @@ public class ImportMailingFileDTO {
         ret.setId(entity.getId());
         ret.setStartDate(entity.getStartDate());
         ret.setNameFile(entity.getNameFile());
-        ret.setImportStatus(entity.getImportStatus());
+        ret.setImportStatusEnum(entity.getImportStatusEnum());
         ret.setError(entity.getError());
         ret.setCancellation(CancellationDTO.convertToDTO(entity.getCancellation()));
         ret.setDataControl(DataControlDTO.convertToDTO(entity.getDataControl()));

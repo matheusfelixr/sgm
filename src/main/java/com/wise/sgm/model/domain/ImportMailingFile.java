@@ -1,6 +1,6 @@
 package com.wise.sgm.model.domain;
 
-import com.wise.sgm.model.enums.ImportStatus;
+import com.wise.sgm.model.enums.ImportStatusEnum;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -36,7 +36,7 @@ public class ImportMailingFile implements Serializable {
 
     @Column(name = "IMPORT_STATUS", nullable = false)
     @Enumerated(EnumType.STRING)
-    private ImportStatus importStatus;
+    private ImportStatusEnum importStatusEnum;
 
     @Column(name = "ERROR", nullable = true)
     private String error;

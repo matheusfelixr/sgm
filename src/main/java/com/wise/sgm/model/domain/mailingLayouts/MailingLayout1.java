@@ -4,7 +4,6 @@ import com.wise.sgm.model.domain.CancellationImpl;
 import com.wise.sgm.model.domain.DataControlImpl;
 import com.wise.sgm.model.domain.ImportMailingFile;
 import com.wise.sgm.model.domain.MailingType;
-import com.wise.sgm.model.enums.ImportStatus;
 import lombok.Data;
 
 import javax.persistence.*;

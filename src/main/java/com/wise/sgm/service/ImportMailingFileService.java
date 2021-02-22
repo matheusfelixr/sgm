@@ -1,7 +1,7 @@
 package com.wise.sgm.service;
 
 import com.wise.sgm.model.domain.ImportMailingFile;
-import com.wise.sgm.model.enums.ImportStatus;
+import com.wise.sgm.model.enums.ImportStatusEnum;
 import com.wise.sgm.repository.ImportMailingFileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -38,21 +38,21 @@ public class ImportMailingFileService {
 
 
             importMailingFile.setEndDate(new Date());
-            importMailingFile.setImportStatus(ImportStatus.SUCCESS);
+            importMailingFile.setImportStatusEnum(ImportStatusEnum.SUCCESS);
 
             return this.save(importMailingFile);
         }catch (ValidationException e){
             e.printStackTrace();
             importMailingFile.setError(e.getMessage());
             importMailingFile.setEndDate(new Date());
-            importMailingFile.setImportStatus(ImportStatus.FAIL);
+            importMailingFile.setImportStatusEnum(ImportStatusEnum.FAIL);
             this.save(importMailingFile);
             throw new ValidationException(e.getMessage());
         }catch (Exception e){
             e.printStackTrace();
             importMailingFile.setError(e.getMessage());
             importMailingFile.setEndDate(new Date());
-            importMailingFile.setImportStatus(ImportStatus.FAIL);
+            importMailingFile.setImportStatusEnum(ImportStatusEnum.FAIL);
             this.save(importMailingFile);
             throw new ValidationException("Erro ao importar arquivo");
         }
@@ -97,7 +97,7 @@ public class ImportMailingFileService {
     public void verifyRegisteredFile(byte[] file) throws Exception {
         ImportMailingFile importMailingFile = new ImportMailingFile();
         importMailingFile.setFile(file);
-        importMailingFile.setImportStatus(ImportStatus.SUCCESS);
+        importMailingFile.setImportStatusEnum(ImportStatusEnum.SUCCESS);
         importMailingFile.setCancellation(null);
 
         ExampleMatcher matcher = ExampleMatcher.matchingAll();

@@ -1,12 +1,7 @@
 package com.wise.sgm.controller;
 
-import com.wise.sgm.model.domain.ImportMailingFile;
-import com.wise.sgm.model.domain.MailingType;
-import com.wise.sgm.model.dto.ImportMailingFile.DownloadFileImportMailingFileDTO;
-import com.wise.sgm.model.dto.ImportMailingFile.ImportMailingFileDTO;
 import com.wise.sgm.model.dto.config.ResponseApi;
 import com.wise.sgm.model.dto.mailingType.MailingTypeDTO;
-import com.wise.sgm.service.ImportMailingFileService;
 import com.wise.sgm.service.MailingTypeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.xml.bind.ValidationException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @CrossOrigin

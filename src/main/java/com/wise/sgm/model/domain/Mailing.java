@@ -1,11 +1,9 @@
 package com.wise.sgm.model.domain;
 
-import com.wise.sgm.model.enums.ImportStatus;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 
 @Data
 @Entity
@@ -20,7 +18,7 @@ public class Mailing implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_MAILING")
     private Long id;
 
-   
+
 
     @Embedded
     private CancellationImpl cancellation;
