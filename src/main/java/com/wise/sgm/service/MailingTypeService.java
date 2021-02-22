@@ -44,6 +44,10 @@ public class MailingTypeService {
         return this.save(mailingType);
     }
 
+    public Optional<MailingType> existLayoutByMultipartFile(MultipartFile multipartFile) throws Exception{
+       return this.findByLayout(this.getLayout(multipartFile));
+    }
+
     private String getLayout(MultipartFile multipartFile) throws Exception {
         java.io.File file = new java.io.File(multipartFile.getOriginalFilename());
         FileOutputStream in = new FileOutputStream(file) ;
