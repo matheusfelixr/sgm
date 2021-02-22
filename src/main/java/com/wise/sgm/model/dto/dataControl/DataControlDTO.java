@@ -1,0 +1,48 @@
+package com.wise.sgm.model.dto.dataControl;
+
+import com.wise.sgm.model.domain.DataControlImpl;
+import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+@Data
+public class DataControlDTO {
+
+    private Date createDate;
+
+    private Date updateDate;
+
+
+    public static DataControlImpl convertToEntity(DataControlDTO dto) {
+        DataControlImpl ret = new DataControlImpl();
+        ret.setCreateDate(dto.getCreateDate());
+        ret.setUpdateDate(dto.getUpdateDate());
+        return ret;
+    }
+
+    public static DataControlDTO convertToDTO(DataControlImpl entity) {
+        DataControlDTO ret = new DataControlDTO();
+        ret.setCreateDate(entity.getCreateDate());
+        ret.setUpdateDate(entity.getUpdateDate());
+        return ret;
+    }
+
+    public static List<DataControlDTO> convertToListDTO(List<DataControlImpl> entitys) {
+        List<DataControlDTO> ret = new ArrayList<DataControlDTO>();
+        for (DataControlImpl entity : entitys) {
+            ret.add(DataControlDTO.convertToDTO(entity));
+        }
+        return ret;
+    }
+
+    public static List<DataControlImpl> convertToListEntity(List<DataControlDTO> DTOs) {
+        List<DataControlImpl> ret = new ArrayList<DataControlImpl>();
+        for (DataControlDTO dto : DTOs) {
+            ret.add(DataControlDTO.convertToEntity(dto));
+        }
+        return ret;
+    }
+
+}
