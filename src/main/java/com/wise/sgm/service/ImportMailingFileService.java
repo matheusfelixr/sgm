@@ -47,12 +47,13 @@ public class ImportMailingFileService {
                 throw new ValidationException("Layout não encontrado. Verifique o arquivo caso o erro permaneça contate o desenvolvedor.");
             }
 
-            this.mailingService.importMailing(mailingType.get(), multipartFile);
-
             importMailingFile.setEndDate(new Date());
             importMailingFile.setImportStatusEnum(ImportStatusEnum.SUCCESS);
 
-            return this.save(importMailingFile);
+            ImportMailingFile ret = this.save(importMailingFile);
+            this.mailingService.importMailing(mailingType.get(), multipartFile, ret);
+
+            return ret;
         }catch (ValidationException e){
             e.printStackTrace();
             importMailingFile.setError(e.getMessage());

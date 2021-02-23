@@ -25,11 +25,11 @@ public class Mailing implements Serializable {
     private MailingStatus mailingStatus;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "START_DATE", nullable = false)
+    @Column(name = "START_DATE", nullable = true)
     private Date startDate;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "END_DATE", nullable = false)
+    @Column(name = "END_DATE", nullable = true)
     private Date endDate;
 
 

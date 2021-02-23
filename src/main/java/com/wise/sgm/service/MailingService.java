@@ -1,5 +1,7 @@
 package com.wise.sgm.service;
 
+import com.wise.sgm.model.domain.ImportMailingFile;
+import com.wise.sgm.model.domain.Mailing;
 import com.wise.sgm.model.domain.MailingType;
 import com.wise.sgm.model.domain.mailingLayouts.MailingLayout1;
 import com.wise.sgm.repository.MailingRepository;
@@ -24,13 +26,13 @@ public class MailingService {
     @Autowired
     private MailingLayout1Service mailingLayout1Service;
 
-    public void importMailing(MailingType mailingType, MultipartFile multipartFile) throws Exception {
+    public void importMailing(MailingType mailingType, MultipartFile multipartFile, ImportMailingFile importMailingFile) throws Exception {
         // melhorar forma de pegar layout
         final String layout1 = "CODCAMPANHA|CUSTOMER_KEY|CPF CNPJ|NOME|TELEFONE_CONTATO_1|TELEFONE_CONTATO_2|TELEFONE_CONTATO_3|INFORMAÇÕES ADICIONAIS|OFERTA_1|OFERTA_2|OFERTA_3|OFERTA_1_CONDICIONAL|OFERTA_2_CONDICIONAL|NUMERO OPP|SUBSCRIÇÃO|CIDADE|REGIONAL|CAMPANHA";
 
         switch (mailingType.getLayout()) {
             case layout1:
-                createMailingLayout1(mailingType, multipartFile);
+                createMailingLayout1(mailingType, multipartFile, importMailingFile);
                 break;
             default:
                 throw new ValidationException("Não foi encontrado layout procure o desenvolvedor");
@@ -38,7 +40,7 @@ public class MailingService {
 
     }
 
-    private void createMailingLayout1(MailingType mailingType, MultipartFile multipartFile) throws Exception {
+    private void createMailingLayout1(MailingType mailingType, MultipartFile multipartFile, ImportMailingFile importMailingFile) throws Exception {
         java.io.File file = new java.io.File(multipartFile.getOriginalFilename());
         FileOutputStream in = new FileOutputStream(file);
         in.write(multipartFile.getBytes());
@@ -49,12 +51,15 @@ public class MailingService {
 
 
         for (Object line : lines) {
-            System.out.println(line);
 
             if (!Arrays.stream(lines).findFirst().get().equals(line)) {
                 MailingLayout1 mailingLayout1 = new MailingLayout1();
                 mailingLayout1.getDataControl().markCreate();
                 mailingLayout1.setMailingType(mailingType);
+                mailingLayout1.setImportMailingFile(importMailingFile);
+
+                Mailing mailing = new Mailing();
+                mailing.getDataControl().markCreate();
 
                 int index = 0;
                 int skip = 0;
@@ -66,7 +71,6 @@ public class MailingService {
                     if (nextPipe == -1) {
                         // setar o ultimo
                         mailingLayout1.setCAMPANHA(lineFor.substring(0, lineFor.length()));
-                        System.out.println(lineFor.substring(0, lineFor.length()));
                         skip = 1;
                     } else {
 
@@ -126,23 +130,24 @@ public class MailingService {
                             case 16:
                                 mailingLayout1.setREGIONAL(lineFor.substring(0, nextPipe));
                                 break;
-
                         }
 
-                        System.out.println(lineFor.substring(0, nextPipe));
                         lineFor = lineFor.substring(nextPipe + 1, lineFor.length());
                     }
 
                     index++;
                 }
-                this.mailingLayout1Service.save(mailingLayout1);
+                MailingLayout1 save = this.mailingLayout1Service.save(mailingLayout1);
+                mailing.setMailingLayout1(save);
+                this.save(mailing);
             }
-
         }
-
-        System.out.println("deu");
         br.close();
         file.delete();
+    }
+
+    public Mailing save(Mailing mailing) throws Exception{
+        return this.mailingRepository.save(mailing);
     }
 
 }
