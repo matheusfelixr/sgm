@@ -16,7 +16,7 @@ public class ImportMailingFile implements Serializable {
     private static final long serialVersionUID = -1231231151490523860L;
 
     @Id
-    @Column(name = "id")
+    @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_IMPORT_MAILING_FILE")
     private Long id;
 

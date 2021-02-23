@@ -1,14 +1,13 @@
 package com.wise.sgm.model.domain.mailingLayouts;
 
-import com.wise.sgm.model.domain.CancellationImpl;
-import com.wise.sgm.model.domain.DataControlImpl;
-import com.wise.sgm.model.domain.ImportMailingFile;
-import com.wise.sgm.model.domain.MailingType;
+import com.wise.sgm.model.domain.*;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
 //CODCAMPANHA|CUSTOMER_KEY|CPF CNPJ|NOME|TELEFONE_CONTATO_1|TELEFONE_CONTATO_2|TELEFONE_CONTATO_3|INFORMAÇÕES ADICIONAIS|OFERTA_1|OFERTA_2|OFERTA_3|OFERTA_1_CONDICIONAL|OFERTA_2_CONDICIONAL|NUMERO OPP|SUBSCRIÇÃO|CIDADE|REGIONAL|CAMPANHA
 @Data
 @Entity
@@ -19,7 +18,7 @@ public class MailingLayout1 implements Serializable {
     private static final long serialVersionUID = -456234151490523860L;
 
     @Id
-    @Column(name = "id")
+    @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_MAILING_LAYOUT_1")
     private Long id;
 
@@ -74,10 +73,13 @@ public class MailingLayout1 implements Serializable {
     @Column(name = "REGIONAL", length = 999999999)
     private String REGIONAL;
 
-    @Column(name = "REGIONAL", length = 999999999)
+    @Column(name = "CAMPANHA", length = 999999999)
     private String CAMPANHA;
 
     //valores obrigatorios para todos layouts
+
+    @OneToMany( fetch = FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="mailingLayout1")
+    private List<Mailing> mailings;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DATE", nullable = false)

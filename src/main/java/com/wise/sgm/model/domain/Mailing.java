@@ -1,5 +1,6 @@
 package com.wise.sgm.model.domain;
 
+import com.wise.sgm.model.domain.mailingLayouts.MailingLayout1;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -14,11 +15,19 @@ public class Mailing implements Serializable {
     private static final long serialVersionUID = -367078151490523860L;
 
     @Id
-    @Column(name = "id")
+    @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_MAILING")
     private Long id;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MAILING_STATUS", referencedColumnName = "ID")
+    private MailingStatus mailingStatus;
 
+
+    //Layouts vão aqui cada layout novo deve ser adicionado aqui
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="MAILING_LAYOUT_1", referencedColumnName="ID")
+    private MailingLayout1 mailingLayout1;
 
     @Embedded
     private CancellationImpl cancellation;
