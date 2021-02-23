@@ -32,6 +32,11 @@ public class Mailing implements Serializable {
     @Column(name = "END_DATE", nullable = true)
     private Date endDate;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "dateSenttoUser", nullable = true)
+    private Date dateSentToUser;
+
+
 
     //Layouts vão aqui cada layout novo deve ser adicionado aqui
     @OneToOne(fetch = FetchType.LAZY)

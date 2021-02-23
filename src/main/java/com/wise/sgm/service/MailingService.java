@@ -16,6 +16,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class MailingService {
@@ -25,6 +27,25 @@ public class MailingService {
 
     @Autowired
     private MailingLayout1Service mailingLayout1Service;
+
+    public Mailing getNextMailing() throws Exception{
+        List<Mailing> mailings = this.mailingRepository.findByMailingStatusIsNullAndDateSentToUserIsNullOrderByDataControlCreateDate();
+            if(mailings.isEmpty()){
+                throw new ValidationException("Não possui novo mailing");
+            }
+        Mailing mailing = mailings.get(0);
+        mailing.setDateSentToUser(new Date());
+        mailingRepository.saveAndFlush(mailing);
+        return mailing;
+    }
+
+    public List<Mailing> findNotAtended(){
+        return mailingRepository.findAll();
+    }
+
+    public List<Mailing> findAll(){
+        return mailingRepository.findAll();
+    }
 
     public void importMailing(MailingType mailingType, MultipartFile multipartFile, ImportMailingFile importMailingFile) throws Exception {
         // melhorar forma de pegar layout
