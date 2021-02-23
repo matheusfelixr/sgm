@@ -78,6 +78,9 @@ public class MailingLayout1 implements Serializable {
 
     //valores obrigatorios para todos layouts
 
+    @Transient
+    private String layout = "CODCAMPANHA|CUSTOMER_KEY|CPF CNPJ|NOME|TELEFONE_CONTATO_1|TELEFONE_CONTATO_2|TELEFONE_CONTATO_3|INFORMAÇÕES ADICIONAIS|OFERTA_1|OFERTA_2|OFERTA_3|OFERTA_1_CONDICIONAL|OFERTA_2_CONDICIONAL|NUMERO OPP|SUBSCRIÇÃO|CIDADE|REGIONAL|CAMPANHA";
+
     @OneToMany( fetch = FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="mailingLayout1")
     private List<Mailing> mailings;
 

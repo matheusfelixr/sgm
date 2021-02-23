@@ -1,6 +1,7 @@
 package com.wise.sgm.service;
 
 import com.wise.sgm.model.domain.ImportMailingFile;
+import com.wise.sgm.model.domain.MailingType;
 import com.wise.sgm.model.enums.ImportStatusEnum;
 import com.wise.sgm.repository.ImportMailingFileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class ImportMailingFileService {
     @Autowired
     private ImportMailingFileRepository importMailingFileRepository;
 
+    @Autowired
+    private MailingTypeService mailingTypeService;
+
     public ImportMailingFile importFile(MultipartFile multipartFile) throws Exception {
         ImportMailingFile importMailingFile = new ImportMailingFile();
         importMailingFile.getDataControl().markCreate();
@@ -34,8 +38,13 @@ public class ImportMailingFileService {
 
             this.verifyRegisteredFile(multipartFile.getBytes());
 
-            //import linhas da tabela
+            Optional<MailingType> mailingType = this.mailingTypeService.existLayoutByMultipartFile(multipartFile);
 
+            if(!mailingType.isPresent()){
+                throw new ValidationException("Layout não encontrado. Verifique o arquivo caso o erro permaneça contate o desenvolvedor.");
+            }
+
+            //import linhas da tabela
 
             importMailingFile.setEndDate(new Date());
             importMailingFile.setImportStatusEnum(ImportStatusEnum.SUCCESS);
