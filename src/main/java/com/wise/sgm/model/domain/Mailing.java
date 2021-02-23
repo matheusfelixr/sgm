@@ -34,8 +34,8 @@ public class Mailing implements Serializable {
 
 
     //Layouts vão aqui cada layout novo deve ser adicionado aqui
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="MAILING_LAYOUT_1", referencedColumnName="ID")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MAILING_LAYOUT_1", referencedColumnName = "ID")
     private MailingLayout1 mailingLayout1;
 
     @Embedded

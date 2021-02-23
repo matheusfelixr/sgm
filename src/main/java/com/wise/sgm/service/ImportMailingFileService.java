@@ -24,6 +24,9 @@ public class ImportMailingFileService {
     @Autowired
     private MailingTypeService mailingTypeService;
 
+    @Autowired
+    private MailingService mailingService;
+
     public ImportMailingFile importFile(MultipartFile multipartFile) throws Exception {
         ImportMailingFile importMailingFile = new ImportMailingFile();
         importMailingFile.getDataControl().markCreate();
@@ -44,7 +47,7 @@ public class ImportMailingFileService {
                 throw new ValidationException("Layout não encontrado. Verifique o arquivo caso o erro permaneça contate o desenvolvedor.");
             }
 
-            //import linhas da tabela
+            this.mailingService.importMailing(mailingType.get(), multipartFile);
 
             importMailingFile.setEndDate(new Date());
             importMailingFile.setImportStatusEnum(ImportStatusEnum.SUCCESS);
@@ -117,12 +120,5 @@ public class ImportMailingFileService {
             throw new ValidationException("Arquivo já importado anteriormente");
         }
     }
-
-
-
-//    java.io.File files = new java.io.File("D:\\opaopa.txt");
-//    FileOutputStream in = new FileOutputStream(files) ;
-//            in.write(importMailingInfo.getFile());
-//            in.close();
 
 }
