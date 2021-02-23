@@ -22,58 +22,58 @@ public class MailingLayout1 implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_MAILING_LAYOUT_1")
     private Long id;
 
-    @Column(name = "CODCAMPANHA", length = 999999999)
+    @Column(name = "CODCAMPANHA", length = 9999)
     private String CODCAMPANHA;
 
-    @Column(name = "CUSTOMER_KEY", length = 999999999)
+    @Column(name = "CUSTOMER_KEY", length = 9999)
     private String CUSTOMER_KEY;
 
-    @Column(name = "CPF_CNPJ", length = 999999999)
+    @Column(name = "CPF_CNPJ", length = 9999)
     private String CPF_CNPJ;
 
-    @Column(name = "NOME", length = 999999999)
+    @Column(name = "NOME", length = 9999)
     private String NOME;
 
-    @Column(name = "TELEFONE_CONTATO_1", length = 999999999)
+    @Column(name = "TELEFONE_CONTATO_1", length = 9999)
     private String TELEFONE_CONTATO_1;
 
-    @Column(name = "TELEFONE_CONTATO_2", length = 999999999)
+    @Column(name = "TELEFONE_CONTATO_2", length = 9999)
     private String TELEFONE_CONTATO_2;
 
-    @Column(name = "TELEFONE_CONTATO_3", length = 999999999)
+    @Column(name = "TELEFONE_CONTATO_3", length = 9999)
     private String TELEFONE_CONTATO_3;
 
-    @Column(name = "INFORMAÇÕES_ADICIONAIS", length = 999999999)
+    @Column(name = "INFORMAÇÕES_ADICIONAIS", length = 9999)
     private String INFORMAÇÕES_ADICIONAIS;
 
-    @Column(name = "OFERTA_1", length = 999999999)
+    @Column(name = "OFERTA_1", length = 9999)
     private String OFERTA_1;
 
-    @Column(name = "OFERTA_2", length = 999999999)
+    @Column(name = "OFERTA_2", length = 9999)
     private String OFERTA_2;
 
-    @Column(name = "OFERTA_3", length = 999999999)
+    @Column(name = "OFERTA_3", length = 9999)
     private String OFERTA_3;
 
-    @Column(name = "OFERTA_1_CONDICIONAL", length = 999999999)
+    @Column(name = "OFERTA_1_CONDICIONAL", length = 9999)
     private String OFERTA_1_CONDICIONAL;
 
-    @Column(name = "OFERTA_2_CONDICIONAL", length = 999999999)
+    @Column(name = "OFERTA_2_CONDICIONAL", length = 9999)
     private String OFERTA_2_CONDICIONAL;
 
-    @Column(name = "NUMERO_OPP", length = 999999999)
+    @Column(name = "NUMERO_OPP", length = 9999)
     private String NUMERO_OPP;
 
-    @Column(name = "SUBSCRIÇÃO", length = 999999999)
+    @Column(name = "SUBSCRIÇÃO", length = 9999)
     private String SUBSCRIÇÃO;
 
-    @Column(name = "CIDADE", length = 999999999)
+    @Column(name = "CIDADE", length = 9999)
     private String CIDADE;
 
-    @Column(name = "REGIONAL", length = 999999999)
+    @Column(name = "REGIONAL", length = 9999)
     private String REGIONAL;
 
-    @Column(name = "CAMPANHA", length = 999999999)
+    @Column(name = "CAMPANHA", length = 9999)
     private String CAMPANHA;
 
     //valores obrigatorios para todos layouts
