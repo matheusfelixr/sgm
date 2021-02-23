@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
 @Entity
@@ -22,6 +23,14 @@ public class Mailing implements Serializable {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MAILING_STATUS", referencedColumnName = "ID")
     private MailingStatus mailingStatus;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "START_DATE", nullable = false)
+    private Date startDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "END_DATE", nullable = false)
+    private Date endDate;
 
 
     //Layouts vão aqui cada layout novo deve ser adicionado aqui
