@@ -38,8 +38,12 @@ public class ImportMailingFileDTO {
         ret.setNameFile(dto.getNameFile());
         ret.setImportStatusEnum(dto.getImportStatusEnum());
         ret.setError(dto.getError());
-        ret.setCancellation(CancellationDTO.convertToEntity(dto.getCancellation()));
-        ret.setDataControl(DataControlDTO.convertToEntity(dto.getDataControl()));
+        if(dto.getCancellation().getCancellationDate() != null){
+            ret.setCancellation(CancellationDTO.convertToEntity(dto.getCancellation()));
+        }
+        if(dto.getDataControl() != null) {
+            ret.setDataControl(DataControlDTO.convertToEntity(dto.getDataControl()));
+        }
         return ret;
     }
 
@@ -50,8 +54,12 @@ public class ImportMailingFileDTO {
         ret.setNameFile(entity.getNameFile());
         ret.setImportStatusEnum(entity.getImportStatusEnum());
         ret.setError(entity.getError());
-        ret.setCancellation(CancellationDTO.convertToDTO(entity.getCancellation()));
-        ret.setDataControl(DataControlDTO.convertToDTO(entity.getDataControl()));
+        if(entity.getCancellation().getCancellationDate() != null){
+            ret.setCancellation(CancellationDTO.convertToDTO(entity.getCancellation()));
+        }
+        if(entity.getDataControl() != null) {
+            ret.setDataControl(DataControlDTO.convertToDTO(entity.getDataControl()));
+        }
         return ret;
     }
 

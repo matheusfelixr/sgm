@@ -1,15 +1,20 @@
 package com.wise.sgm.controller;
 
 import com.wise.sgm.model.domain.ImportMailingFile;
+import com.wise.sgm.model.domain.UserAuthentication;
 import com.wise.sgm.model.dto.ImportMailingFile.DownloadFileImportMailingFileDTO;
 import com.wise.sgm.model.dto.ImportMailingFile.ImportMailingFileDTO;
 import com.wise.sgm.model.dto.config.ResponseApi;
 import com.wise.sgm.service.ImportMailingFileService;
+import com.wise.sgm.service.SecurityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,12 +33,16 @@ public class ImportMailingFileController {
     @Autowired
     private ImportMailingFileService importMailingFileService;
 
+    @Autowired
+    private SecurityService securityService;
+
     @PostMapping(value  = "/import-file")
     public ResponseEntity<ResponseApi<ImportMailingFileDTO>> importFile(@RequestParam("file") MultipartFile file) {
         LOGGER.debug("Inicio processo de importacao de arquivo.");
         ResponseApi<ImportMailingFileDTO> response = new ResponseApi<>();
         try {
-            response.setData(ImportMailingFileDTO.convertToDTO(this.importMailingFileService.importFile(file)));
+            UserAuthentication currentUser = securityService.getCurrentUser();
+            response.setData(ImportMailingFileDTO.convertToDTO(this.importMailingFileService.importFile(file, currentUser)));
             LOGGER.debug("Importacao realizada com sucesso.");
             return ResponseEntity.ok(response);
         }catch (ValidationException e) {
@@ -77,7 +86,8 @@ public class ImportMailingFileController {
         LOGGER.debug("Inicio processo de cancelamento imports de arquivo.");
         ResponseApi<ImportMailingFileDTO> response = new ResponseApi<>();
         try {
-            response.setData(ImportMailingFileDTO.convertToDTO(this.importMailingFileService.cancel(id)));
+            UserAuthentication currentUser = securityService.getCurrentUser();
+            response.setData(ImportMailingFileDTO.convertToDTO(this.importMailingFileService.cancel(id, currentUser)));
             LOGGER.debug("Cancelamento de import de arquivo realizado com sucesso.");
             return ResponseEntity.ok(response);
         }catch (ValidationException e) {

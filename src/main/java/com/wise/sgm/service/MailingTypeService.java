@@ -1,6 +1,7 @@
 package com.wise.sgm.service;
 
 import com.wise.sgm.model.domain.MailingType;
+import com.wise.sgm.model.domain.UserAuthentication;
 import com.wise.sgm.repository.MailingTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,10 +20,10 @@ public class MailingTypeService {
     @Autowired
     private MailingTypeRepository mailingTypeRepository;
 
-    public MailingType saveFormatLayout(MultipartFile multipartFile) throws Exception{
+    public MailingType saveFormatLayout(MultipartFile multipartFile, UserAuthentication currentUser) throws Exception{
 
         MailingType mailingType = new MailingType();
-        mailingType.getDataControl().markCreate();
+        mailingType.getDataControl().markCreate(currentUser);
 
         if(multipartFile.isEmpty()){
             throw new ValidationException("Arquivo não encontrado");

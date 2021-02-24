@@ -26,13 +26,14 @@ public class CancellationImpl implements Serializable {
 	@Column(name = "CANCELLATION_OBS", length = 250)
 	private String cancellationObservation;
 
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "CANCELLATION_USER", referencedColumnName = "ID")
-//	private User user;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CANCELLATION_USER", referencedColumnName = "ID")
+	private UserAuthentication cancellationUser;
 
-	public void markCanceled(String observation) {
+	public void markCanceled(String observation, UserAuthentication cancellationUser) {
 		this.setCancellationDate(new Date());
 		this.setCancellationObservation(observation);
+		this.setCancellationUser(cancellationUser);
 	}
 
 

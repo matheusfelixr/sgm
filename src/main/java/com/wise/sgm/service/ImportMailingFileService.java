@@ -2,6 +2,7 @@ package com.wise.sgm.service;
 
 import com.wise.sgm.model.domain.ImportMailingFile;
 import com.wise.sgm.model.domain.MailingType;
+import com.wise.sgm.model.domain.UserAuthentication;
 import com.wise.sgm.model.enums.ImportStatusEnum;
 import com.wise.sgm.repository.ImportMailingFileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +28,9 @@ public class ImportMailingFileService {
     @Autowired
     private MailingService mailingService;
 
-    public ImportMailingFile importFile(MultipartFile multipartFile) throws Exception {
+    public ImportMailingFile importFile(MultipartFile multipartFile, UserAuthentication currentUser) throws Exception {
         ImportMailingFile importMailingFile = new ImportMailingFile();
-        importMailingFile.getDataControl().markCreate();
+        importMailingFile.getDataControl().markCreate(currentUser);
         importMailingFile.setStartDate(new Date());
 
         try {
@@ -51,7 +52,7 @@ public class ImportMailingFileService {
             importMailingFile.setImportStatusEnum(ImportStatusEnum.SUCCESS);
 
             ImportMailingFile ret = this.save(importMailingFile);
-            this.mailingService.importMailing(mailingType.get(), multipartFile, ret);
+            this.mailingService.importMailing(mailingType.get(), multipartFile, ret, currentUser);
 
             return ret;
         }catch (ValidationException e){
@@ -93,7 +94,7 @@ public class ImportMailingFileService {
         return importMailingFileRepository.findAll(example);
     }
 
-    public ImportMailingFile cancel(Long id) throws Exception {
+    public ImportMailingFile cancel(Long id, UserAuthentication currentUser) throws Exception {
         Optional<ImportMailingFile> importMailingFile = importMailingFileRepository.findById(id);
         if(!importMailingFile.isPresent()){
             throw new ValidationException("Não encontrado import de arquivo com esse id");
@@ -101,8 +102,8 @@ public class ImportMailingFileService {
         if(importMailingFile.get().getCancellation().getCancellationDate() != null){
             throw new ValidationException("Import de arquivo ja cancelado");
         }
-        importMailingFile.get().getCancellation().markCanceled("Solicitação de cancelamento");
-        importMailingFile.get().getDataControl().markModified();
+        importMailingFile.get().getCancellation().markCanceled("Solicitação de cancelamento", currentUser);
+        importMailingFile.get().getDataControl().markModified(currentUser);
         //cancelar import realizado de arquivo
         return this.save(importMailingFile.get());
     }

@@ -1,6 +1,7 @@
 package com.wise.sgm.model.dto.dataControl;
 
 import com.wise.sgm.model.domain.DataControlImpl;
+import com.wise.sgm.model.dto.userAuthentication.ReturnUserAuthenticationDTO;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -12,7 +13,13 @@ public class DataControlDTO {
 
     private Date createDate;
 
+    private ReturnUserAuthenticationDTO createUser;
+
     private Date updateDate;
+
+    private ReturnUserAuthenticationDTO updateUser;
+
+;
 
 
     public static DataControlImpl convertToEntity(DataControlDTO dto) {
@@ -25,7 +32,9 @@ public class DataControlDTO {
     public static DataControlDTO convertToDTO(DataControlImpl entity) {
         DataControlDTO ret = new DataControlDTO();
         ret.setCreateDate(entity.getCreateDate());
+        ret.setCreateUser(new ReturnUserAuthenticationDTO(entity.getCreateUser().getUserName()));
         ret.setUpdateDate(entity.getUpdateDate());
+        ret.setUpdateUser(new ReturnUserAuthenticationDTO(entity.getUpdateUser().getUserName()));
         return ret;
     }
 

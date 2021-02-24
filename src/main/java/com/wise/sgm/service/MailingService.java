@@ -3,6 +3,7 @@ package com.wise.sgm.service;
 import com.wise.sgm.model.domain.ImportMailingFile;
 import com.wise.sgm.model.domain.Mailing;
 import com.wise.sgm.model.domain.MailingType;
+import com.wise.sgm.model.domain.UserAuthentication;
 import com.wise.sgm.model.domain.mailingLayouts.MailingLayout1;
 import com.wise.sgm.repository.MailingRepository;
 import com.wise.sgm.service.mailingLayouts.MailingLayout1Service;
@@ -28,7 +29,7 @@ public class MailingService {
     @Autowired
     private MailingLayout1Service mailingLayout1Service;
 
-    public Mailing getNextMailing() throws Exception{
+    public Mailing getNextMailing(UserAuthentication currentUser) throws Exception{
         List<Mailing> mailings = this.mailingRepository.findByMailingStatusIsNullAndDateSentToUserIsNullOrderByDataControlCreateDate();
             if(mailings.isEmpty()){
                 throw new ValidationException("Não possui novo mailing");
@@ -36,25 +37,22 @@ public class MailingService {
         Mailing mailing = mailings.get(0);
         mailing.setDateSentToUser(new Date());
         mailing.setStartDate(new Date());
+        mailing.getDataControl().markModified(currentUser);
         mailingRepository.saveAndFlush(mailing);
         return mailing;
-    }
-
-    public List<Mailing> findNotAtended(){
-        return mailingRepository.findAll();
     }
 
     public List<Mailing> findAll(){
         return mailingRepository.findAll();
     }
 
-    public void importMailing(MailingType mailingType, MultipartFile multipartFile, ImportMailingFile importMailingFile) throws Exception {
+    public void importMailing(MailingType mailingType, MultipartFile multipartFile, ImportMailingFile importMailingFile, UserAuthentication currentUser) throws Exception {
         // melhorar forma de pegar layout
         final String layout1 = "CODCAMPANHA|CUSTOMER_KEY|CPF CNPJ|NOME|TELEFONE_CONTATO_1|TELEFONE_CONTATO_2|TELEFONE_CONTATO_3|INFORMAÇÕES ADICIONAIS|OFERTA_1|OFERTA_2|OFERTA_3|OFERTA_1_CONDICIONAL|OFERTA_2_CONDICIONAL|NUMERO OPP|SUBSCRIÇÃO|CIDADE|REGIONAL|CAMPANHA";
 
         switch (mailingType.getLayout()) {
             case layout1:
-                createMailingLayout1(mailingType, multipartFile, importMailingFile);
+                createMailingLayout1(mailingType, multipartFile, importMailingFile,currentUser);
                 break;
             default:
                 throw new ValidationException("Não foi encontrado layout procure o desenvolvedor");
@@ -62,7 +60,7 @@ public class MailingService {
 
     }
 
-    private void createMailingLayout1(MailingType mailingType, MultipartFile multipartFile, ImportMailingFile importMailingFile) throws Exception {
+    private void createMailingLayout1(MailingType mailingType, MultipartFile multipartFile, ImportMailingFile importMailingFile, UserAuthentication currentUser) throws Exception {
         java.io.File file = new java.io.File(multipartFile.getOriginalFilename());
         FileOutputStream in = new FileOutputStream(file);
         in.write(multipartFile.getBytes());
@@ -76,12 +74,12 @@ public class MailingService {
 
             if (!Arrays.stream(lines).findFirst().get().equals(line)) {
                 MailingLayout1 mailingLayout1 = new MailingLayout1();
-                mailingLayout1.getDataControl().markCreate();
+                mailingLayout1.getDataControl().markCreate(currentUser);
                 mailingLayout1.setMailingType(mailingType);
                 mailingLayout1.setImportMailingFile(importMailingFile);
 
                 Mailing mailing = new Mailing();
-                mailing.getDataControl().markCreate();
+                mailing.getDataControl().markCreate(currentUser);
 
                 int index = 0;
                 int skip = 0;

@@ -1,8 +1,10 @@
 package com.wise.sgm.controller;
 
+import com.wise.sgm.model.domain.UserAuthentication;
 import com.wise.sgm.model.dto.config.ResponseApi;
 import com.wise.sgm.model.dto.mailingType.MailingTypeDTO;
 import com.wise.sgm.service.MailingTypeService;
+import com.wise.sgm.service.SecurityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +27,17 @@ public class MailingTypeController {
     @Autowired
     private MailingTypeService mailingTypeService;
 
+    @Autowired
+    private SecurityService securityService;
+
     @PostMapping(value  = "/save-format-layout")
     public ResponseEntity<ResponseApi<MailingTypeDTO>> saveFormatLayout(@RequestParam("file") MultipartFile file) {
         LOGGER.debug("Inicio processo de importar formato de arquivo de arquivo.");
         ResponseApi<MailingTypeDTO> response = new ResponseApi<>();
         try {
-            response.setData(MailingTypeDTO.convertToDTO(this.mailingTypeService.saveFormatLayout(file)));
+            UserAuthentication currentUser = securityService.getCurrentUser();
+
+            response.setData(MailingTypeDTO.convertToDTO(this.mailingTypeService.saveFormatLayout(file, currentUser)));
             LOGGER.debug("Importacao realizada com sucesso.");
             return ResponseEntity.ok(response);
         }catch (ValidationException e) {

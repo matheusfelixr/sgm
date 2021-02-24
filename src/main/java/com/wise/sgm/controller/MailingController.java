@@ -1,11 +1,13 @@
 package com.wise.sgm.controller;
 
 import com.wise.sgm.model.domain.Mailing;
+import com.wise.sgm.model.domain.UserAuthentication;
 import com.wise.sgm.model.dto.config.ResponseApi;
 import com.wise.sgm.model.dto.mailing.NextMailingDTO;
 import com.wise.sgm.model.dto.mailingType.MailingTypeDTO;
 import com.wise.sgm.service.MailingService;
 import com.wise.sgm.service.MailingTypeService;
+import com.wise.sgm.service.SecurityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +30,17 @@ public class MailingController {
     @Autowired
     private MailingService mailingService;
 
+    @Autowired
+    private SecurityService securityService;
+
     @GetMapping(value  = "/get-next-mailing")
     public ResponseEntity<ResponseApi<NextMailingDTO>> getNextMailing() {
         LOGGER.debug("Inicio processo para pegar novo mailing");
         ResponseApi<NextMailingDTO> response = new ResponseApi<>();
         try {
-            response.setData(NextMailingDTO.convertToDTO(mailingService.getNextMailing()));
+            UserAuthentication currentUser = securityService.getCurrentUser();
+
+            response.setData(NextMailingDTO.convertToDTO(mailingService.getNextMailing(currentUser)));
             LOGGER.debug("processo para pegar novo mailing realizada com sucesso.");
             return ResponseEntity.ok(response);
         }catch (ValidationException e) {

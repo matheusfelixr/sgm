@@ -1,6 +1,7 @@
 package com.wise.sgm.model.dto.cancellation;
 
 import com.wise.sgm.model.domain.CancellationImpl;
+import com.wise.sgm.model.dto.userAuthentication.ReturnUserAuthenticationDTO;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -14,6 +15,9 @@ public class CancellationDTO {
 
     private String cancellationObservation;
 
+    private ReturnUserAuthenticationDTO cancellationUser;
+
+
     public static CancellationImpl convertToEntity(CancellationDTO dto) {
         CancellationImpl ret = new CancellationImpl();
         ret.setCancellationDate(dto.getCancellationDate());
@@ -25,6 +29,8 @@ public class CancellationDTO {
         CancellationDTO ret = new CancellationDTO();
         ret.setCancellationDate(entity.getCancellationDate());
         ret.setCancellationObservation(entity.getCancellationObservation());
+        ret.setCancellationUser(new ReturnUserAuthenticationDTO(entity.getCancellationUser().getUserName()));
+
         return ret;
     }
 
