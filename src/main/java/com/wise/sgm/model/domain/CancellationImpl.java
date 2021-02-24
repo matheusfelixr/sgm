@@ -35,6 +35,12 @@ public class CancellationImpl implements Serializable {
 		this.setCancellationObservation(observation);
 		this.setCancellationUser(cancellationUser);
 	}
+	public boolean isCancelled() {
+		if(cancellationDate == null){
+			return true;
+		}
+		return false;
+	}
 
 
 
