@@ -35,6 +35,7 @@ public class MailingService {
             }
         Mailing mailing = mailings.get(0);
         mailing.setDateSentToUser(new Date());
+        mailing.setStartDate(new Date());
         mailingRepository.saveAndFlush(mailing);
         return mailing;
     }

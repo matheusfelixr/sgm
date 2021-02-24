@@ -2,6 +2,7 @@ package com.wise.sgm.controller;
 
 import com.wise.sgm.model.domain.Mailing;
 import com.wise.sgm.model.dto.config.ResponseApi;
+import com.wise.sgm.model.dto.mailing.NextMailingDTO;
 import com.wise.sgm.model.dto.mailingType.MailingTypeDTO;
 import com.wise.sgm.service.MailingService;
 import com.wise.sgm.service.MailingTypeService;
@@ -28,12 +29,11 @@ public class MailingController {
     private MailingService mailingService;
 
     @GetMapping(value  = "/get-next-mailing")
-    public ResponseEntity<ResponseApi<Mailing>> getNextMailing() {
+    public ResponseEntity<ResponseApi<NextMailingDTO>> getNextMailing() {
         LOGGER.debug("Inicio processo para pegar novo mailing");
-        ResponseApi<Mailing> response = new ResponseApi<>();
+        ResponseApi<NextMailingDTO> response = new ResponseApi<>();
         try {
-            Mailing nextMailing = mailingService.getNextMailing();
-            response.setData( new Mailing());
+            response.setData(NextMailingDTO.convertToDTO(mailingService.getNextMailing()));
             LOGGER.debug("processo para pegar novo mailing realizada com sucesso.");
             return ResponseEntity.ok(response);
         }catch (ValidationException e) {
