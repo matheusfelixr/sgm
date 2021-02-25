@@ -85,15 +85,15 @@ public class SecurityService implements UserDetailsService {
             throw new ValidationException("Usuário desabilitado");
         } catch (BadCredentialsException e) {
             historyAuthenticationService.generateHistoryFail(authenticateRequestDTO.getUsername(), httpServletRequest, "Senha invalida");
-            throw new ValidationException("Senha invalida");
+            throw new ValidationException("Verifique se digitou corretamente usuário e senha.");
         }
     }
 
     private void validateAuthenticate(AuthenticateRequestDTO authenticateRequestDTO) throws ValidationException {
-        if(authenticateRequestDTO.getUsername() == null){
+        if(authenticateRequestDTO.getUsername() == null || authenticateRequestDTO.getUsername().length() == 0 ){
             throw new ValidationException("Usuário não pode ser vazio");
         }
-        if(authenticateRequestDTO.getPassword() == null){
+        if(authenticateRequestDTO.getPassword() == null || authenticateRequestDTO.getUsername().length() == 0 ){
             throw new ValidationException("Senha não pode ser vazio");
         }
     }

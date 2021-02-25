@@ -47,13 +47,13 @@ public class MailingController {
             LOGGER.error(e.getMessage());
             List<String> erros = Arrays.asList(e.getMessage());
             response.setErrors(erros);
-            return ResponseEntity.status(HttpStatus.OK).body(response);
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
             e.printStackTrace();
             LOGGER.error("Erro inesperado ao realizar pegar novo mailing");
             List<String> erros = Arrays.asList("Erro inesperado ao realizar pegar novo mailing");
             response.setErrors(erros);
-            return ResponseEntity.status(HttpStatus.OK).body(response);
+            return ResponseEntity.ok(response);
         }
     }
 }

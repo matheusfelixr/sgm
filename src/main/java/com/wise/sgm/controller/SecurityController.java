@@ -6,7 +6,6 @@ import com.wise.sgm.service.SecurityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,13 +35,13 @@ public class SecurityController {
 		} catch (ValidationException e) {
 			LOGGER.error(e.getMessage());
 			response.setErrors(Arrays.asList(e.getMessage()));
-			return ResponseEntity.badRequest().body(response);
+			return ResponseEntity.ok(response);
 		} catch (Exception e) {
 			e.printStackTrace();
 			LOGGER.error("Erro inesperado ao tentar autenticar");
 			List<String> erros = Arrays.asList("Erro inesperado ao tentar autenticar");
 			response.setErrors(erros);
-			return ResponseEntity.status(HttpStatus.OK).body(response);
+			return ResponseEntity.ok(response);
 		}
 	}
 
@@ -57,13 +56,13 @@ public class SecurityController {
 		} catch (ValidationException e) {
 			LOGGER.error(e.getMessage());
 			response.setErrors(Arrays.asList(e.getMessage()));
-			return ResponseEntity.badRequest().body(response);
+			return ResponseEntity.ok(response);
 		} catch (Exception e) {
 			e.printStackTrace();
 			LOGGER.error("Erro inesperado ao tentar resetar senha");
 			List<String> erros = Arrays.asList("Erro inesperado ao tentar resetar senha");
 			response.setErrors(erros);
-			return ResponseEntity.status(HttpStatus.OK).body(response);
+			return ResponseEntity.ok(response);
 		}
 	}
 
@@ -79,13 +78,13 @@ public class SecurityController {
 		} catch (ValidationException e) {
 			LOGGER.error(e.getMessage());
 			response.setErrors(Arrays.asList(e.getMessage()));
-			return ResponseEntity.badRequest().body(response);
+			return ResponseEntity.ok(response);
 		} catch (Exception e) {
 			e.printStackTrace();
 			LOGGER.error("Erro inesperado ao tentar criar novo usuário");
 			List<String> erros = Arrays.asList("Erro inesperado ao tentar criar novo usuário");
 			response.setErrors(erros);
-			return ResponseEntity.status(HttpStatus.OK).body(response);
+			return ResponseEntity.ok(response);
 		}
 	}
 
