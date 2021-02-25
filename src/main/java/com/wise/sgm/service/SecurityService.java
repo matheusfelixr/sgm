@@ -67,6 +67,8 @@ public class SecurityService implements UserDetailsService {
 
     public AuthenticateResponseDTO authenticate(AuthenticateRequestDTO authenticateRequestDTO, HttpServletRequest httpServletRequest ) throws Exception {
         try {
+            //valida autenticacao
+            this.validateAuthenticate(authenticateRequestDTO);
             //Autentica o usuario
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticateRequestDTO.getUsername(), authenticateRequestDTO.getPassword()));
             //Busca o userDetails para geracao do token
@@ -84,6 +86,15 @@ public class SecurityService implements UserDetailsService {
         } catch (BadCredentialsException e) {
             historyAuthenticationService.generateHistoryFail(authenticateRequestDTO.getUsername(), httpServletRequest, "Senha invalida");
             throw new ValidationException("Senha invalida");
+        }
+    }
+
+    private void validateAuthenticate(AuthenticateRequestDTO authenticateRequestDTO) throws ValidationException {
+        if(authenticateRequestDTO.getUsername() == null){
+            throw new ValidationException("Usuário não pode ser vazio");
+        }
+        if(authenticateRequestDTO.getPassword() == null){
+            throw new ValidationException("Senha não pode ser vazio");
         }
     }
 

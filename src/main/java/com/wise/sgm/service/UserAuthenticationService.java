@@ -33,11 +33,11 @@ public class UserAuthenticationService {
     }
 
     public Optional<UserAuthentication> findByUserName(String userName){
-        return Optional.ofNullable(userAuthenticationRepository.findByUserName(userName));
+        return Optional.ofNullable(userAuthenticationRepository.findByUserNameAndCancellationCancellationDateIsNull(userName));
     }
 
     public Optional<UserAuthentication> findByEmail(String Email){
-        return Optional.ofNullable(userAuthenticationRepository.findByEmail(Email));
+        return Optional.ofNullable(userAuthenticationRepository.findByEmailAndCancellationCancellationDateIsNull(Email));
     }
 
     public UserAuthentication modifyPassword(String userName, String password) throws Exception {

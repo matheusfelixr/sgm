@@ -27,4 +27,14 @@ public class UserAuthentication {
     public String[] getRoles() {
         return new String[]{"USER"};
     }
+
+    @Embedded
+    private CancellationImpl cancellation;
+
+    public CancellationImpl getCancellation() {
+        if(this.cancellation == null){
+            cancellation = new CancellationImpl();
+        }
+        return cancellation;
+    }
 }
