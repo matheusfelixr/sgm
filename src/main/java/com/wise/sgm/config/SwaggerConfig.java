@@ -81,9 +81,12 @@ public class SwaggerConfig {
     private AuthenticateRequestDTO getOrCreateUser() {
         try {
             Optional<UserAuthentication> user = userAuthenticationService.findByUserName("swagger");
+            Optional<UserAuthentication> userSystem = userAuthenticationService.findByUserName("System");
+
             UserAuthentication userAuthentication = new UserAuthentication();
             String password= "123456";
-            if (!user.isPresent()) {
+
+            if(!userSystem.isPresent()){
                 UserAuthentication ret = new UserAuthentication();
 
                 ret.setUserName("System");
@@ -91,13 +94,14 @@ public class SwaggerConfig {
                 ret.setEmail("System@AdminSystem.com");
                 ret.setChangePassword(false);
                 userAuthenticationService.create(ret);
+            }
+            if (!user.isPresent()) {
+                UserAuthentication ret = new UserAuthentication();
 
-                UserAuthentication ret2 = new UserAuthentication();
-
-                ret2.setUserName("swagger");
-                ret2.setPassword(password);
-                ret2.setEmail("matheusfelixr@gmail.com");
-                ret2.setChangePassword(false);
+                ret.setUserName("swagger");
+                ret.setPassword(password);
+                ret.setEmail("matheusfelixr@gmail.com");
+                ret.setChangePassword(false);
                 userAuthentication = userAuthenticationService.create(ret);
             }else{
                 userAuthentication = user.get();
