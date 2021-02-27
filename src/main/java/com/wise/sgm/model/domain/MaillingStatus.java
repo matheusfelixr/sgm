@@ -24,7 +24,7 @@ public class MaillingStatus implements Serializable {
 
     @Column(name = "REASON_MAILLING", nullable = false)
     @Enumerated(EnumType.STRING)
-    private ReasonMaillingEnum reasonMaillingEnum;
+    private ReasonMaillingEnum reasonMailling;
 
     @Embedded
     private CancellationImpl cancellation;

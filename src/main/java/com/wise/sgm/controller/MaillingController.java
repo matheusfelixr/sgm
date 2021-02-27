@@ -45,8 +45,8 @@ public class MaillingController {
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             e.printStackTrace();
-            LOGGER.error("Erro inesperado ao realizar pegar novo mailling");
-            List<String> erros = Arrays.asList("Erro inesperado ao realizar pegar novo mailling");
+            LOGGER.error("Erro inesperado ao realizar novo mailling");
+            List<String> erros = Arrays.asList("Erro inesperado ao realizar novo mailling");
             response.setErrors(erros);
             return ResponseEntity.ok(response);
         }
