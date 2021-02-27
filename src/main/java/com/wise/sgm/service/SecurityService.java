@@ -96,6 +96,7 @@ public class SecurityService implements UserDetailsService {
         if(authenticateRequestDTO.getPassword() == null || authenticateRequestDTO.getUsername().length() == 0 ){
             throw new ValidationException("Senha não pode ser vazio");
         }
+        authenticateRequestDTO.setUsername(authenticateRequestDTO.getUsername().trim());
     }
 
     public ResetPasswordResponseDTO resetPassword(String userName, HttpServletRequest httpServletRequest) throws Exception {
@@ -110,7 +111,7 @@ public class SecurityService implements UserDetailsService {
     public CreateUserResponseDTO createUser(CreateUserRequestDTO createUserRequestDTO) throws Exception {
         String password = Password.generatePasswordInt(5);
         UserAuthentication ret = new UserAuthentication();
-        ret.setUserName(createUserRequestDTO.getUsername());
+        ret.setUserName(createUserRequestDTO.getUsername().trim());
         ret.setPassword(password);
         ret.setEmail(createUserRequestDTO.getEmail());
         ret.setChangePassword(true);
