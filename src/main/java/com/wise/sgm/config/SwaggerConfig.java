@@ -86,10 +86,18 @@ public class SwaggerConfig {
             if (!user.isPresent()) {
                 UserAuthentication ret = new UserAuthentication();
 
-                ret.setUserName("swagger");
+                ret.setUserName("System");
                 ret.setPassword(password);
-                ret.setEmail("matheusfelixr@gmail.com");
+                ret.setEmail("System@AdminSystem.com");
                 ret.setChangePassword(false);
+                userAuthenticationService.create(ret);
+
+                UserAuthentication ret2 = new UserAuthentication();
+
+                ret2.setUserName("swagger");
+                ret2.setPassword(password);
+                ret2.setEmail("matheusfelixr@gmail.com");
+                ret2.setChangePassword(false);
                 userAuthentication = userAuthenticationService.create(ret);
             }else{
                 userAuthentication = user.get();

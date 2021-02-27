@@ -34,6 +34,13 @@ public class UserAuthentication {
     @Embedded
     private CancellationImpl cancellation;
 
+    public UserAuthentication() {
+    }
+
+    public UserAuthentication(Long id) {
+        this.id = id;
+    }
+
     public CancellationImpl getCancellation() {
         if(this.cancellation == null){
             cancellation = new CancellationImpl();

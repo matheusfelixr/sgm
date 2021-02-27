@@ -19,4 +19,11 @@ public interface MaillingRepository extends JpaRepository<Mailling, Long> {
      */
     List<Mailling> findBySentToUserAndMaillingStatusIsNullAndDateSentToUserIsNotNullAndCancellationCancellationDateIsNullOrderByDataControlCreateDate(UserAuthentication sentToUser);
 
+
+    /**
+     * Pega mailling que iniciou atendimento e que o status está nullo e que não foi enviado para um usuario e que nao esta cancelado
+     * @return
+     */
+    List<Mailling> findBySentToUserIsNullAndMaillingStatusIsNullAndDateSentToUserIsNotNullAndCancellationCancellationDateIsNullOrderByDataControlCreateDate();
+
 }

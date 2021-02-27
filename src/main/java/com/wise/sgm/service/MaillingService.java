@@ -179,4 +179,14 @@ public class MaillingService {
         return this.maillingRepository.save(mailling);
     }
 
+    public void releasesMillings() throws Exception {
+        List<Mailling> maillingsNotAttendeds = this.maillingRepository.findBySentToUserIsNullAndMaillingStatusIsNullAndDateSentToUserIsNotNullAndCancellationCancellationDateIsNullOrderByDataControlCreateDate();
+        for(Mailling mailling :maillingsNotAttendeds){
+            mailling.setSentToUser(null);
+            mailling.setDateSentToUser(null);
+            mailling.getDataControl().markModified(new UserAuthentication(1L));
+            this.save(mailling);
+        }
+    }
+
 }
