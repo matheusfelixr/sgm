@@ -1,0 +1,7 @@
+docker build -t sgm .
+
+docker push 10.0.0.250:7003/sgm
+
+docker pull 10.0.0.250:7003/sgm
+
+docker run --name=sgm -p 8080:8080  -d sgm
