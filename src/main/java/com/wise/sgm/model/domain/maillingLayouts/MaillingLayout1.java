@@ -1,25 +1,23 @@
-package com.wise.sgm.model.domain.mailingLayouts;
+package com.wise.sgm.model.domain.maillingLayouts;
 
 import com.wise.sgm.model.domain.*;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
 
 //CODCAMPANHA|CUSTOMER_KEY|CPF CNPJ|NOME|TELEFONE_CONTATO_1|TELEFONE_CONTATO_2|TELEFONE_CONTATO_3|INFORMAÇÕES ADICIONAIS|OFERTA_1|OFERTA_2|OFERTA_3|OFERTA_1_CONDICIONAL|OFERTA_2_CONDICIONAL|NUMERO OPP|SUBSCRIÇÃO|CIDADE|REGIONAL|CAMPANHA
 @Data
 @Entity
-@Table(name = "MAILING_LAYOUT_1")
-@SequenceGenerator(name = "SEQ_MAILING_LAYOUT_1", sequenceName = "SEQ_MAILING_LAYOUT_1")
-public class MailingLayout1 implements Serializable {
+@Table(name = "MAILLING_LAYOUT_1")
+@SequenceGenerator(name = "SEQ_MAILLING_LAYOUT_1", sequenceName = "SEQ_MAILLING_LAYOUT_1")
+public class MaillingLayout1 implements Serializable {
 
     private static final long serialVersionUID = -456234151490523860L;
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_MAILING_LAYOUT_1")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_MAILLING_LAYOUT_1")
     private Long id;
 
     @Column(name = "CODCAMPANHA", length = 9999)
@@ -79,12 +77,12 @@ public class MailingLayout1 implements Serializable {
     //valores obrigatorios para todos layouts
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MAILING_TYPE", referencedColumnName = "ID")
-    private MailingType mailingType;
+    @JoinColumn(name = "MAILLING_TYPE", referencedColumnName = "ID")
+    private MaillingType maillingType;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "IMPORT_MAILING_FILE", referencedColumnName = "ID")
-    private ImportMailingFile importMailingFile;
+    @JoinColumn(name = "IMPORT_MAILLING_FILE", referencedColumnName = "ID")
+    private ImportMaillingFile importMaillingFile;
 
     @Embedded
     private CancellationImpl cancellation;

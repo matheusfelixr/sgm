@@ -47,5 +47,21 @@ public class EmailService {
         javaMailSender.send(simpleMailMessage);
     }
 
+    public void newPassword(UserAuthentication userAuthentication) {
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        EmailFormatDTO emailFormatDTO =   new EmailFormatDTO("noreply <matheusfelixr@hotmail.com>",
+                Arrays.asList(userAuthentication.getUserName()+"<"+userAuthentication.getEmail()+">")
+                , "Sua senha foi alterada.",
+                "Sua senha acaba de ser alterada.");
+
+        simpleMailMessage.setFrom(emailFormatDTO.getSender());
+        simpleMailMessage.setTo(emailFormatDTO.getRecipients()
+                .toArray(new String[emailFormatDTO.getRecipients().size()]));
+        simpleMailMessage.setSubject(emailFormatDTO.getSubject());
+        simpleMailMessage.setText(emailFormatDTO.getBody());
+
+        javaMailSender.send(simpleMailMessage);
+    }
+
 
 }

@@ -24,6 +24,9 @@ public class UserAuthentication {
     @Column(name = "EMAIL", nullable = false, unique = true)
     private String email;
 
+    @Column(name = "CHANGE_PASSWORD", nullable = false)
+    private Boolean changePassword;
+
     public String[] getRoles() {
         return new String[]{"USER"};
     }

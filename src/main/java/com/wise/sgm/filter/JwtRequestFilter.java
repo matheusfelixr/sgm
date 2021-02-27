@@ -16,6 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Enumeration;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
@@ -29,8 +30,15 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws ServletException, IOException {
-		
+
 		final String requestTokenHeader = request.getHeader("Authorization");
+
+		Enumeration<String> headerNames = request.getHeaderNames();
+
+		System.out.println(headerNames.nextElement());
+		System.out.println(request.getMethod());
+
+		System.out.println(request.getMethod());
 
 		String username = null;
 		String jwtToken = null;

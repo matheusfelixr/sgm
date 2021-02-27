@@ -9,15 +9,15 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "IMPORT_MAILING_FILE")
-@SequenceGenerator(name = "SEQ_IMPORT_MAILING_FILE", sequenceName = "SEQ_IMPORT_MAILING_FILE")
-public class ImportMailingFile implements Serializable {
+@Table(name = "IMPORT_MAILLING_FILE")
+@SequenceGenerator(name = "SEQ_IMPORT_MAILLING_FILE", sequenceName = "SEQ_IMPORT_MAILLING_FILE")
+public class ImportMaillingFile implements Serializable {
 
     private static final long serialVersionUID = -1231231151490523860L;
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_IMPORT_MAILING_FILE")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_IMPORT_MAILLING_FILE")
     private Long id;
 
     @Temporal(TemporalType.TIMESTAMP)

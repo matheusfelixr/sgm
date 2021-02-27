@@ -1,8 +1,8 @@
 package com.wise.sgm.service;
 
-import com.wise.sgm.model.domain.MailingType;
+import com.wise.sgm.model.domain.MaillingType;
 import com.wise.sgm.model.domain.UserAuthentication;
-import com.wise.sgm.repository.MailingTypeRepository;
+import com.wise.sgm.repository.MaillingTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,31 +15,31 @@ import java.io.InputStreamReader;
 import java.util.Optional;
 
 @Service
-public class MailingTypeService {
+public class MaillingTypeService {
 
     @Autowired
-    private MailingTypeRepository mailingTypeRepository;
+    private MaillingTypeRepository maillingTypeRepository;
 
-    public MailingType saveFormatLayout(MultipartFile multipartFile, UserAuthentication currentUser) throws Exception{
+    public MaillingType saveFormatLayout(MultipartFile multipartFile, UserAuthentication currentUser) throws Exception{
 
-        MailingType mailingType = new MailingType();
-        mailingType.getDataControl().markCreate(currentUser);
+        MaillingType maillingType = new MaillingType();
+        maillingType.getDataControl().markCreate(currentUser);
 
         if(multipartFile.isEmpty()){
             throw new ValidationException("Arquivo não encontrado");
         }
         String layout = getLayout(multipartFile);
-        Optional<MailingType> mailingTypeByLayout = this.findByLayout(layout);
+        Optional<MaillingType> maillingTypeByLayout = this.findByLayout(layout);
 
-        if(mailingTypeByLayout.isPresent()){
+        if(maillingTypeByLayout.isPresent()){
             throw new ValidationException("Layout já existe");
         }
-        mailingType.setLayout(layout);
+        maillingType.setLayout(layout);
 
-        return this.save(mailingType);
+        return this.save(maillingType);
     }
 
-    public Optional<MailingType> existLayoutByMultipartFile(MultipartFile multipartFile) throws Exception{
+    public Optional<MaillingType> existLayoutByMultipartFile(MultipartFile multipartFile) throws Exception{
        return this.findByLayout(this.getLayout(multipartFile));
     }
 
@@ -56,12 +56,12 @@ public class MailingTypeService {
         return layout;
     }
 
-    public MailingType save(MailingType mailingType) throws Exception{
-        return this.mailingTypeRepository.save(mailingType);
+    public MaillingType save(MaillingType maillingType) throws Exception{
+        return this.maillingTypeRepository.save(maillingType);
     }
 
-    public Optional<MailingType> findByLayout(String layout) throws Exception{
-        return Optional.ofNullable(this.mailingTypeRepository.findByLayout(layout));
+    public Optional<MaillingType> findByLayout(String layout) throws Exception{
+        return Optional.ofNullable(this.maillingTypeRepository.findByLayout(layout));
     }
 
 }

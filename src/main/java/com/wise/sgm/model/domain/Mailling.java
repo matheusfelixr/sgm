@@ -1,6 +1,6 @@
 package com.wise.sgm.model.domain;
 
-import com.wise.sgm.model.domain.mailingLayouts.MailingLayout1;
+import com.wise.sgm.model.domain.maillingLayouts.MaillingLayout1;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -9,20 +9,20 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "MAILING")
-@SequenceGenerator(name = "SEQ_MAILING", sequenceName = "SEQ_MAILING")
-public class Mailing implements Serializable {
+@Table(name = "MAILLING")
+@SequenceGenerator(name = "SEQ_MAILLING", sequenceName = "SEQ_MAILLING")
+public class Mailling implements Serializable {
 
     private static final long serialVersionUID = -367078151490523860L;
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_MAILING")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_MAILLING")
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MAILING_STATUS", referencedColumnName = "ID")
-    private MailingStatus mailingStatus;
+    @JoinColumn(name = "MAILLING_STATUS", referencedColumnName = "ID")
+    private MaillingStatus maillingStatus;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "START_DATE", nullable = true)
@@ -43,8 +43,8 @@ public class Mailing implements Serializable {
 
     //Layouts vão aqui cada layout novo deve ser adicionado aqui
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MAILING_LAYOUT_1", referencedColumnName = "ID")
-    private MailingLayout1 mailingLayout1;
+    @JoinColumn(name = "MAILLING_LAYOUT_1", referencedColumnName = "ID")
+    private MaillingLayout1 maillingLayout1;
 
     @Embedded
     private CancellationImpl cancellation;

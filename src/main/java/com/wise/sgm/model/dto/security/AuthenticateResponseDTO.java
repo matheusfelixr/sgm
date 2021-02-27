@@ -7,10 +7,12 @@ public class AuthenticateResponseDTO {
 	
 	private String userName;
 	private String token;
+	private Boolean changePassword;
 
-	public AuthenticateResponseDTO(String userName, String token) {
+	public AuthenticateResponseDTO(String userName, String token, Boolean changePassword) {
 		this.userName = userName;
 		this.token = token;
+		this.changePassword = changePassword;
 	}
 
 	public AuthenticateResponseDTO() {

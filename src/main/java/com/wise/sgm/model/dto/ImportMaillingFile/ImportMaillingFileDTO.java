@@ -1,6 +1,6 @@
-package com.wise.sgm.model.dto.ImportMailingFile;
+package com.wise.sgm.model.dto.ImportMaillingFile;
 
-import com.wise.sgm.model.domain.ImportMailingFile;
+import com.wise.sgm.model.domain.ImportMaillingFile;
 import com.wise.sgm.model.dto.cancellation.CancellationDTO;
 import com.wise.sgm.model.dto.dataControl.DataControlDTO;
 import com.wise.sgm.model.enums.ImportStatusEnum;
@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-public class ImportMailingFileDTO {
+public class ImportMaillingFileDTO {
 
     private Long id;
 
@@ -31,8 +31,8 @@ public class ImportMailingFileDTO {
 
 
 
-    public static ImportMailingFile convertToEntity(ImportMailingFileDTO dto) {
-        ImportMailingFile ret = new ImportMailingFile();
+    public static ImportMaillingFile convertToEntity(ImportMaillingFileDTO dto) {
+        ImportMaillingFile ret = new ImportMaillingFile();
         ret.setId(dto.getId());
         ret.setStartDate(dto.getStartDate());
         ret.setNameFile(dto.getNameFile());
@@ -47,8 +47,8 @@ public class ImportMailingFileDTO {
         return ret;
     }
 
-    public static ImportMailingFileDTO convertToDTO(ImportMailingFile entity) {
-        ImportMailingFileDTO ret = new ImportMailingFileDTO();
+    public static ImportMaillingFileDTO convertToDTO(ImportMaillingFile entity) {
+        ImportMaillingFileDTO ret = new ImportMaillingFileDTO();
         ret.setId(entity.getId());
         ret.setStartDate(entity.getStartDate());
         ret.setNameFile(entity.getNameFile());
@@ -63,18 +63,18 @@ public class ImportMailingFileDTO {
         return ret;
     }
 
-    public static List<ImportMailingFileDTO> convertToListDTO(List<ImportMailingFile> entitys) {
-        List<ImportMailingFileDTO> ret = new ArrayList<ImportMailingFileDTO>();
-        for (ImportMailingFile entity : entitys) {
-            ret.add(ImportMailingFileDTO.convertToDTO(entity));
+    public static List<ImportMaillingFileDTO> convertToListDTO(List<ImportMaillingFile> entitys) {
+        List<ImportMaillingFileDTO> ret = new ArrayList<ImportMaillingFileDTO>();
+        for (ImportMaillingFile entity : entitys) {
+            ret.add(ImportMaillingFileDTO.convertToDTO(entity));
         }
         return ret;
     }
 
-    public static List<ImportMailingFile> convertToListEntity(List<ImportMailingFileDTO> DTOs) {
-        List<ImportMailingFile> ret = new ArrayList<ImportMailingFile>();
-        for (ImportMailingFileDTO dto : DTOs) {
-            ret.add(ImportMailingFileDTO.convertToEntity(dto));
+    public static List<ImportMaillingFile> convertToListEntity(List<ImportMaillingFileDTO> DTOs) {
+        List<ImportMaillingFile> ret = new ArrayList<ImportMaillingFile>();
+        for (ImportMaillingFileDTO dto : DTOs) {
+            ret.add(ImportMaillingFileDTO.convertToEntity(dto));
         }
         return ret;
     }

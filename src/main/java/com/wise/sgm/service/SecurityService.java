@@ -79,7 +79,7 @@ public class SecurityService implements UserDetailsService {
             UserAuthentication userAuthentication = this.userAuthenticationService.findByUserName(authenticateRequestDTO.getUsername()).get();
             //Gera historico
             historyAuthenticationService.generateHistorySucess(userAuthentication, httpServletRequest );
-            return new AuthenticateResponseDTO(userAuthentication.getUserName(), token);
+            return new AuthenticateResponseDTO(userAuthentication.getUserName(), token,userAuthentication.getChangePassword());
         } catch (DisabledException e) {
             historyAuthenticationService.generateHistoryFail(authenticateRequestDTO.getUsername(), httpServletRequest, "Usuário desabilitado");
             throw new ValidationException("Usuário desabilitado");
@@ -100,7 +100,7 @@ public class SecurityService implements UserDetailsService {
 
     public ResetPasswordResponseDTO resetPassword(String userName, HttpServletRequest httpServletRequest) throws Exception {
         String password = Password.generatePasswordInt(5);
-        UserAuthentication userAuthentication = userAuthenticationService.modifyPassword(userName, password);
+        UserAuthentication userAuthentication = userAuthenticationService.modifyPassword(userName, password , true);
         emailService.resetPassword(userAuthentication, password);
         historyResetPasswordService.generateHistory(userAuthentication, httpServletRequest);
         return new ResetPasswordResponseDTO ("Foi enviado uma nova senha para o E-mail: "+EmailHelper.maskEmail(userAuthentication.getEmail()));
@@ -113,10 +113,16 @@ public class SecurityService implements UserDetailsService {
         ret.setUserName(createUserRequestDTO.getUsername());
         ret.setPassword(password);
         ret.setEmail(createUserRequestDTO.getEmail());
-
+        ret.setChangePassword(true);
         userAuthenticationService.create(ret);
 
         return new CreateUserResponseDTO ("Usuário cadastrado com sucesso! Foi enviada a senha para o E-mail: " + EmailHelper.maskEmail(ret.getEmail()));
+    }
+
+    public AuthenticateResponseDTO newPassword(NewPasswordRequestDTO newPasswordRequestDTO, HttpServletRequest httpServletRequest) throws Exception {
+        UserAuthentication userAuthentication = userAuthenticationService.modifyPassword(newPasswordRequestDTO.getUserName(), newPasswordRequestDTO.getPassword() , false);
+        emailService.newPassword(userAuthentication);
+        return this.authenticate(new AuthenticateRequestDTO(newPasswordRequestDTO.getUserName(), newPasswordRequestDTO.getPassword()), httpServletRequest);
     }
 
     public UserAuthentication getCurrentUser() throws Exception {

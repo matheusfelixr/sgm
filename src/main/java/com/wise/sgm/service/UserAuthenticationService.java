@@ -40,10 +40,10 @@ public class UserAuthenticationService {
         return Optional.ofNullable(userAuthenticationRepository.findByEmailAndCancellationCancellationDateIsNull(Email));
     }
 
-    public UserAuthentication modifyPassword(String userName, String password) throws Exception {
+    public UserAuthentication modifyPassword(String userName, String password, Boolean changePassword) throws Exception {
         UserAuthentication userAuthentication = this.validateModifyPassword(userName);
         userAuthentication.setPassword(this.passwordEncoder.encode(password));
-
+        userAuthentication.setChangePassword(changePassword);
         userAuthenticationRepository.save(userAuthentication);
         return userAuthentication;
     }

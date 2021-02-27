@@ -88,6 +88,26 @@ public class SecurityController {
 		}
 	}
 
+	@PostMapping(value  = "/password")
+	public ResponseEntity<ResponseApi<AuthenticateResponseDTO>> newPassword(@RequestBody NewPasswordRequestDTO newPasswordRequestDTO, HttpServletRequest httpServletRequest) throws Exception {
+		LOGGER.debug("Inicio processo de autenticacao.");
+		ResponseApi<AuthenticateResponseDTO> response = new ResponseApi<>();
+		try {
+			response.setData(this.securityService.newPassword(newPasswordRequestDTO, httpServletRequest));
+			LOGGER.debug("Autenticacao realizada com sucesso.");
+			return ResponseEntity.ok(response);
+		} catch (ValidationException e) {
+			LOGGER.error(e.getMessage());
+			response.setErrors(Arrays.asList(e.getMessage()));
+			return ResponseEntity.ok(response);
+		} catch (Exception e) {
+			e.printStackTrace();
+			LOGGER.error("Erro inesperado ao tentar autenticar");
+			List<String> erros = Arrays.asList("Erro inesperado ao tentar autenticar");
+			response.setErrors(erros);
+			return ResponseEntity.ok(response);
+		}
+	}
 
 
 }

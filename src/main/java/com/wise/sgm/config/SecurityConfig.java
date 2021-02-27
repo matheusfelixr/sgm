@@ -42,11 +42,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
-		
+		System.out.println("opaopa");
 		httpSecurity.addFilterBefore(corsFilter(), SessionManagementFilter.class).csrf().disable()
 		// Não verifique essas requisições
-		.authorizeRequests().antMatchers("/security/authenticate**",
-										 "/security/reset-password**",
+		.authorizeRequests().antMatchers(
+				               "/security/**",
+//										 "/security/reset-password**",
 										 "/v2/api-docs",
 										 "/configuration/ui",
 										 "/swagger-resources/**",

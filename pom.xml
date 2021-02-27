@@ -12,7 +12,7 @@
 	<artifactId>sgm</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>sgm</name>
-	<description>Sistema responsável pelo gerenciamento de mailing</description>
+	<description>Sistema responsável pelo gerenciamento de mailling</description>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
