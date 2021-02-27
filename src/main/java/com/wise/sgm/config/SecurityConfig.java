@@ -47,6 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// Não verifique essas requisições
 		.authorizeRequests().antMatchers(
 				               "/security/**",
+										 "/mailling/**",
 //										 "/security/reset-password**",
 										 "/v2/api-docs",
 										 "/configuration/ui",

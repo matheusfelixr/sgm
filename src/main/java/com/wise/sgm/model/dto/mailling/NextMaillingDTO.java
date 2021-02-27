@@ -22,6 +22,8 @@ public class NextMaillingDTO {
 
     private String phone2;
 
+    private String phone3;
+
 
     public static NextMaillingDTO convertToDTO(Mailling entity) {
         NextMaillingDTO ret = new NextMaillingDTO();
@@ -34,6 +36,7 @@ public class NextMaillingDTO {
             ret.setName(entity.getMaillingLayout1().getNOME());
             ret.setPhone1(entity.getMaillingLayout1().getTELEFONE_CONTATO_1());
             ret.setPhone2(entity.getMaillingLayout1().getTELEFONE_CONTATO_2());
+            ret.setPhone3(entity.getMaillingLayout1().getTELEFONE_CONTATO_3());
             return ret;
         }
         return null;

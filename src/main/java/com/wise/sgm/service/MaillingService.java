@@ -16,6 +16,7 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -30,14 +31,22 @@ public class MaillingService {
     private MaillingLayout1Service maillingLayout1Service;
 
     public Mailling getNextMailling(UserAuthentication currentUser) throws Exception{
-        List<Mailling> maillings = this.maillingRepository.findByMaillingStatusIsNullAndDateSentToUserIsNullOrderByDataControlCreateDate();
-            if(maillings.isEmpty()){
-                throw new ValidationException("Não possui novo mailling");
-            }
-        Mailling mailling = maillings.get(0);
+        List<Mailling> ret = new ArrayList<>();
+        List<Mailling> maillingsNotAttendeds = this.maillingRepository.findBySentToUserAndMaillingStatusIsNullAndDateSentToUserIsNotNullAndCancellationCancellationDateIsNullOrderByDataControlCreateDate(currentUser);
+
+        if(maillingsNotAttendeds.isEmpty()){
+         ret = this.maillingRepository.findByMaillingStatusIsNullAndDateSentToUserIsNullAndCancellationCancellationDateIsNullOrderByDataControlCreateDate();
+        }else{
+            ret =maillingsNotAttendeds;
+        }
+        if(ret.isEmpty()){
+            throw new ValidationException("Não possui novo mailling");
+        }
+        Mailling mailling = ret.get(0);
         mailling.setDateSentToUser(new Date());
         mailling.setStartDate(new Date());
         mailling.getDataControl().markModified(currentUser);
+        mailling.setSentToUser(currentUser);
         maillingRepository.saveAndFlush(mailling);
         return mailling;
     }
