@@ -1,10 +1,8 @@
 package com.wise.sgm.service;
 
-import com.wise.sgm.model.domain.ImportMaillingFile;
-import com.wise.sgm.model.domain.Mailling;
-import com.wise.sgm.model.domain.MaillingType;
-import com.wise.sgm.model.domain.UserAuthentication;
+import com.wise.sgm.model.domain.*;
 import com.wise.sgm.model.domain.maillingLayouts.MaillingLayout1;
+import com.wise.sgm.model.dto.MessageDTO;
 import com.wise.sgm.repository.MaillingRepository;
 import com.wise.sgm.service.maillingLayouts.MaillingLayout1Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +14,7 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class MaillingService {
@@ -29,6 +24,9 @@ public class MaillingService {
 
     @Autowired
     private MaillingLayout1Service maillingLayout1Service;
+
+    @Autowired
+    private MaillingStatusService maillingStatusService;
 
     public Mailling getNextMailling(UserAuthentication currentUser) throws Exception{
         List<Mailling> ret = new ArrayList<>();
@@ -186,6 +184,31 @@ public class MaillingService {
             mailling.setDateSentToUser(null);
             mailling.getDataControl().markModified(new UserAuthentication(1L));
             this.save(mailling);
+        }
+    }
+
+    public Optional<Mailling> findById(Long idMailling ){
+        return maillingRepository.findById(idMailling);
+    }
+
+    public MessageDTO saveAttendance(Long idMaillingStatus, Long idMailling, UserAuthentication currentUser) throws Exception{
+        Optional<MaillingStatus> maillingStatus = maillingStatusService.findById(idMaillingStatus);
+        Optional<Mailling> mailling = this.findById(idMailling);
+        validateSaveAttendance(maillingStatus, mailling);
+
+        mailling.get().setEndDate(new Date());
+        mailling.get().setMaillingStatus(maillingStatus.get());
+        mailling.get().getDataControl().markModified(currentUser);
+        this.save(mailling.get());
+        return new MessageDTO("Sucesso ao salvar atendimento");
+    }
+
+    private void validateSaveAttendance(Optional<MaillingStatus> maillingStatus, Optional<Mailling> mailling) throws ValidationException {
+        if(!maillingStatus.isPresent()){
+            throw new ValidationException("Não foi possivel encontrar o status. Procure o suporte.");
+        }
+        if(!mailling.isPresent()){
+            throw new ValidationException("Não foi possivel encontrar o mailing. Procure o suporte.");
         }
     }
 

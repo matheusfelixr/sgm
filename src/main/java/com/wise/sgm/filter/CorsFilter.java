@@ -28,9 +28,6 @@ public class CorsFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpServletRequest request= (HttpServletRequest) servletRequest;
 
-        Enumeration<String> headerNames = request.getHeaderNames();
-
-        System.out.println(headerNames.nextElement());
 
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "GET,POST,DELETE,PUT,OPTIONS");

@@ -1,6 +1,7 @@
 package com.wise.sgm.service;
 
 import com.wise.sgm.model.domain.UserAuthentication;
+import com.wise.sgm.model.dto.MessageDTO;
 import com.wise.sgm.model.dto.security.*;
 import com.wise.sgm.security.JwtTokenUtil;
 import com.wise.sgm.util.EmailHelper;
@@ -99,16 +100,16 @@ public class SecurityService implements UserDetailsService {
         authenticateRequestDTO.setUsername(authenticateRequestDTO.getUsername().trim());
     }
 
-    public ResetPasswordResponseDTO resetPassword(String userName, HttpServletRequest httpServletRequest) throws Exception {
+    public MessageDTO resetPassword(String userName, HttpServletRequest httpServletRequest) throws Exception {
         String password = Password.generatePasswordInt(5);
         UserAuthentication userAuthentication = userAuthenticationService.modifyPassword(userName, password , true);
         emailService.resetPassword(userAuthentication, password);
         historyResetPasswordService.generateHistory(userAuthentication, httpServletRequest);
-        return new ResetPasswordResponseDTO ("Foi enviado uma nova senha para o E-mail: "+EmailHelper.maskEmail(userAuthentication.getEmail()));
+        return new MessageDTO ("Foi enviado uma nova senha para o E-mail: "+EmailHelper.maskEmail(userAuthentication.getEmail()));
     }
 
 
-    public CreateUserResponseDTO createUser(CreateUserRequestDTO createUserRequestDTO) throws Exception {
+    public MessageDTO createUser(CreateUserRequestDTO createUserRequestDTO) throws Exception {
         String password = Password.generatePasswordInt(5);
         UserAuthentication ret = new UserAuthentication();
         ret.setUserName(createUserRequestDTO.getUsername().trim());
@@ -117,7 +118,7 @@ public class SecurityService implements UserDetailsService {
         ret.setChangePassword(true);
         userAuthenticationService.create(ret);
 
-        return new CreateUserResponseDTO ("Usuário cadastrado com sucesso! Foi enviada a senha para o E-mail: " + EmailHelper.maskEmail(ret.getEmail()));
+        return new MessageDTO ("Usuário cadastrado com sucesso! Foi enviada a senha para o E-mail: " + EmailHelper.maskEmail(ret.getEmail()));
     }
 
     public AuthenticateResponseDTO newPassword(NewPasswordRequestDTO newPasswordRequestDTO, HttpServletRequest httpServletRequest) throws Exception {

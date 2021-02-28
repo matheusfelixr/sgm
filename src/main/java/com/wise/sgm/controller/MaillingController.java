@@ -1,8 +1,11 @@
 package com.wise.sgm.controller;
 
 import com.wise.sgm.model.domain.UserAuthentication;
+import com.wise.sgm.model.dto.MessageDTO;
 import com.wise.sgm.model.dto.config.ResponseApi;
 import com.wise.sgm.model.dto.mailling.NextMaillingDTO;
+import com.wise.sgm.model.dto.mailling.SaveAttendanceDTO;
+import com.wise.sgm.model.dto.maillingStatus.CreateMaillingStatusDTO;
 import com.wise.sgm.service.MaillingService;
 import com.wise.sgm.service.SecurityService;
 import org.slf4j.Logger;
@@ -47,6 +50,31 @@ public class MaillingController {
             e.printStackTrace();
             LOGGER.error("Erro inesperado ao realizar novo mailling");
             List<String> erros = Arrays.asList("Erro inesperado ao realizar novo mailling");
+            response.setErrors(erros);
+            return ResponseEntity.ok(response);
+        }
+    }
+
+
+    @PostMapping(value  = "/save-attendance")
+    public ResponseEntity<ResponseApi<MessageDTO>> saveAttendance(@RequestBody SaveAttendanceDTO saveAttendanceDTO) {
+        LOGGER.info("Inicio processo para salvar atendimento com ids: " +saveAttendanceDTO.toString());
+        ResponseApi<MessageDTO> response = new ResponseApi<>();
+        try {
+            UserAuthentication currentUser = securityService.getCurrentUser();
+
+            response.setData(maillingService.saveAttendance(saveAttendanceDTO.getIdMaillingStatus(), saveAttendanceDTO.getIdMailling(),currentUser));
+            LOGGER.info("Sucesso ao salvar atendimento");
+            return ResponseEntity.ok(response);
+        }catch (ValidationException e) {
+            LOGGER.error(e.getMessage());
+            List<String> erros = Arrays.asList(e.getMessage());
+            response.setErrors(erros);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.error("Erro inesperado ao salvar atendimento");
+            List<String> erros = Arrays.asList("Erro inesperado ao salvar atendimento");
             response.setErrors(erros);
             return ResponseEntity.ok(response);
         }

@@ -7,7 +7,9 @@ import com.wise.sgm.repository.MaillingStatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MaillingStatusService {
@@ -27,4 +29,9 @@ public class MaillingStatusService {
     public List<MaillingStatus> findByReasonMailling(ReasonMaillingEnum reasonMailling ){
         return maillingStatusRepository.findByReasonMailling(reasonMailling);
     }
+
+    public Optional<MaillingStatus> findById(Long idMaillingStatus ){
+        return maillingStatusRepository.findById(idMaillingStatus);
+    }
+
 }

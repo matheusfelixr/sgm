@@ -1,5 +1,6 @@
 package com.wise.sgm.controller;
 
+import com.wise.sgm.model.dto.MessageDTO;
 import com.wise.sgm.model.dto.config.ResponseApi;
 import com.wise.sgm.model.dto.security.*;
 import com.wise.sgm.service.SecurityService;
@@ -46,9 +47,9 @@ public class SecurityController {
 	}
 
 	@PostMapping(value  = "/reset-password")
-	public ResponseEntity<ResponseApi<ResetPasswordResponseDTO>> resetPassword(@RequestBody ResetPasswordRequestDTO resetPasswordRequestDTO, HttpServletRequest httpServletRequest) throws Exception {
+	public ResponseEntity<ResponseApi<MessageDTO>> resetPassword(@RequestBody ResetPasswordRequestDTO resetPasswordRequestDTO, HttpServletRequest httpServletRequest) throws Exception {
 		LOGGER.debug("Inicio processo de reset de senha.");
-		ResponseApi<ResetPasswordResponseDTO> response = new ResponseApi<>();
+		ResponseApi<MessageDTO> response = new ResponseApi<>();
 		try {
 			response.setData(this.securityService.resetPassword(resetPasswordRequestDTO.getUsername().trim(),httpServletRequest));
 			LOGGER.debug("Reset de senha realizado com sucesso.");
@@ -68,9 +69,9 @@ public class SecurityController {
 
 
 	@PostMapping(value  = "/create-user")
-	public ResponseEntity<ResponseApi<CreateUserResponseDTO>> createUser(@RequestBody CreateUserRequestDTO createUserRequestDTO) throws Exception {
+	public ResponseEntity<ResponseApi<MessageDTO>> createUser(@RequestBody CreateUserRequestDTO createUserRequestDTO) throws Exception {
 		LOGGER.debug("Inicio processo de criação de usuario.");
-		ResponseApi<CreateUserResponseDTO> response = new ResponseApi<>();
+		ResponseApi<MessageDTO> response = new ResponseApi<>();
 		try {
 			response.setData(this.securityService.createUser(createUserRequestDTO));
 			LOGGER.debug("Processo de criação de usuario realizado com sucesso.");
