@@ -33,7 +33,7 @@ public class MailingService {
         List<Mailing> mailingsNotAttendeds = this.mailingRepository.findBySentToUserAndMailingStatusIsNullAndDateSentToUserIsNotNullAndCancellationCancellationDateIsNullOrderByDataControlCreateDate(currentUser);
 
         if(mailingsNotAttendeds.isEmpty()){
-         ret = this.mailingRepository.findByMailingStatusIsNullAndDateSentToUserIsNullAndCancellationCancellationDateIsNull();
+         ret = this.mailingRepository.findNextAttendance();
         }else{
             ret =mailingsNotAttendeds;
         }
