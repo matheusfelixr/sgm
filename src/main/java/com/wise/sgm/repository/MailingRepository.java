@@ -11,7 +11,7 @@ public interface MailingRepository extends JpaRepository<Mailing, Long> {
      * Pega mailling que o status está nullo e que não foi enviado para um usuario e que nao esta cancelado
      * @return
      */
-    List<Mailing> findByMailingStatusIsNullAndDateSentToUserIsNullAndCancellationCancellationDateIsNullOrderByDataControlCreateDate();
+    List<Mailing> findByMailingStatusIsNullAndDateSentToUserIsNullAndCancellationCancellationDateIsNull();
 
     /**
      * Pega mailling por usuario que iniciou atendimento e que o status está nullo e que não foi enviado para um usuario e que nao esta cancelado

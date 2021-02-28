@@ -32,6 +32,10 @@ public class Mailing implements Serializable {
     @Column(name = "END_DATE", nullable = true)
     private Date endDate;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "DATE_SENT_TO_USER", nullable = true)
+    private Date dateSentToUser;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "SENT_TO_USER", referencedColumnName = "ID", nullable = true)
     private UserAuthentication sentToUser;

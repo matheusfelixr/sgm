@@ -33,7 +33,7 @@ public class MailingService {
         List<Mailing> mailingsNotAttendeds = this.mailingRepository.findBySentToUserAndMailingStatusIsNullAndDateSentToUserIsNotNullAndCancellationCancellationDateIsNullOrderByDataControlCreateDate(currentUser);
 
         if(mailingsNotAttendeds.isEmpty()){
-         ret = this.mailingRepository.findByMailingStatusIsNullAndDateSentToUserIsNullAndCancellationCancellationDateIsNullOrderByDataControlCreateDate();
+         ret = this.mailingRepository.findByMailingStatusIsNullAndDateSentToUserIsNullAndCancellationCancellationDateIsNull();
         }else{
             ret =mailingsNotAttendeds;
         }
@@ -43,6 +43,7 @@ public class MailingService {
         Mailing mailing = ret.get(0);
         mailing.setStartDate(new Date());
         mailing.getDataControl().markModified(currentUser);
+        mailing.setDateSentToUser(new Date());
         mailing.setSentToUser(currentUser);
         mailingRepository.saveAndFlush(mailing);
         return mailing;
