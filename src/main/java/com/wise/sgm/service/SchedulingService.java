@@ -1,6 +1,5 @@
 package com.wise.sgm.service;
 
-import com.wise.sgm.controller.MaillingController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,7 @@ public class SchedulingService {
 
 
     @Autowired
-    private MaillingService maillingService;
+    private MailingService mailingService;
 
     /**
      * Libera Millings que estão travados por conta que um usuario pegou ele e não atendeu.
@@ -25,7 +24,7 @@ public class SchedulingService {
     public void releasesMillings() {
         LOGGER.info("[Scheduling] Inicio processo para liberar millings travados [Scheduling]");
         try {
-            this.maillingService.releasesMillings();
+            this.mailingService.releasesMillings();
         } catch (Exception e) {
             LOGGER.error("[Scheduling] Erro no processo para liberar millings travados [Scheduling]");
             e.printStackTrace();

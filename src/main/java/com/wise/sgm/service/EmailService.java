@@ -51,7 +51,7 @@ public class EmailService {
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         EmailFormatDTO emailFormatDTO =   new EmailFormatDTO("noreply <matheusfelixr@hotmail.com>",
                 Arrays.asList(userAuthentication.getUserName()+"<"+userAuthentication.getEmail()+">")
-                , "Sua senha foi alterada.",
+                , "Alteração de senha.",
                 "Sua senha acaba de ser alterada.");
 
         simpleMailMessage.setFrom(emailFormatDTO.getSender());
