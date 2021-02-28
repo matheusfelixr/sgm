@@ -21,7 +21,7 @@ public class SchedulingService {
     /**
      * Libera Millings que estão travados por conta que um usuario pegou ele e não atendeu.
      */
-    @Scheduled(cron = " * 59 * * * *")
+    @Scheduled(cron = " 59 59 * * * *")
     public void releasesMillings() {
         LOGGER.info("[Scheduling] Inicio processo para liberar millings travados [Scheduling]");
         try {

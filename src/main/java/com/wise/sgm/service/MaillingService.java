@@ -210,6 +210,10 @@ public class MaillingService {
         if(!mailling.isPresent()){
             throw new ValidationException("Não foi possivel encontrar o mailing. Procure o suporte.");
         }
+        if(mailling.get().getMaillingStatus() != null){
+            throw new ValidationException("Status já salvo. Favor printar tela e  atualize. Favor informar ao suporte.");
+        }
+
     }
 
 }
