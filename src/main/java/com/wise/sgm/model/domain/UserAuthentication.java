@@ -7,12 +7,12 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "USER_AUTHENTICATION" )
-@SequenceGenerator(name = "SEQ_USER_AUTHENTICATION", sequenceName = "SEQ_USER_AUTHENTICATION")
+@SequenceGenerator(name = "SEQ_USER_AUTHENTICATION", sequenceName = "SEQ_USER_AUTHENTICATION", allocationSize = 1)
 public class UserAuthentication {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_USER_AUTHENTICATION")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_USER_AUTHENTICATION")
     private Long id;
 
     @Column(name = "USER_NAME", nullable = false, unique = true)

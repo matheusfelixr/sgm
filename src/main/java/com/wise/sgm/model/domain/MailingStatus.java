@@ -9,14 +9,14 @@ import java.io.Serializable;
 @Data
 @Entity
 @Table(name = "MAILING_STATUS")
-@SequenceGenerator(name = "SEQ_MAILING_STATUS", sequenceName = "SEQ_MAILING_STATUS")
+@SequenceGenerator(name = "SEQ_MAILING_STATUS", sequenceName = "SEQ_MAILING_STATUS", allocationSize = 1)
 public class MailingStatus implements Serializable {
 
     private static final long serialVersionUID = -3534531151490523860L;
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_MAILING_STATUS")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_MAILING_STATUS")
     private Long id;
 
     @Column(name = "DESCRIPTION", nullable = true)

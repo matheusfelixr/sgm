@@ -8,12 +8,12 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "HISTORY_RESET_PASSWORD" )
-@SequenceGenerator(name = "SEQ_HISTORY_RESET_PASSWORD", sequenceName = "SEQ_HISTORY_RESET_PASSWORD")
+@SequenceGenerator(name = "SEQ_HISTORY_RESET_PASSWORD", sequenceName = "SEQ_HISTORY_RESET_PASSWORD", allocationSize = 1)
 public class HistoryResetPassword {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_HISTORY_RESET_PASSWORD")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_HISTORY_RESET_PASSWORD")
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)

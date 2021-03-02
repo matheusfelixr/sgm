@@ -10,14 +10,14 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "MAILING")
-@SequenceGenerator(name = "SEQ_MAILING", sequenceName = "SEQ_MAILING")
+@SequenceGenerator(name = "SEQ_MAILING", sequenceName = "SEQ_MAILING", allocationSize = 1)
 public class Mailing implements Serializable {
 
     private static final long serialVersionUID = -367078151490523860L;
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_MAILING")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_MAILING")
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)

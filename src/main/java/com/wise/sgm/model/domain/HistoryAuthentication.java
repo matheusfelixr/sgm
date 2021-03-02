@@ -8,12 +8,12 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "HISTORY_AUTHENTICATION" )
-@SequenceGenerator(name = "SEQ_HISTORY_AUTHENTICATION", sequenceName = "SEQ_HISTORY_AUTHENTICATION")
+@SequenceGenerator(name = "SEQ_HISTORY_AUTHENTICATION", sequenceName = "SEQ_HISTORY_AUTHENTICATION", allocationSize = 1)
 public class HistoryAuthentication {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_HISTORY_AUTHENTICATION")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_HISTORY_AUTHENTICATION")
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)

@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Data
 @Entity
 @Table(name = "MAILING_LAYOUT_1")
-@SequenceGenerator(name = "SEQ_MAILING_LAYOUT_1", sequenceName = "SEQ_MAILING_LAYOUT_1")
+@SequenceGenerator(name = "SEQ_MAILING_LAYOUT_1", sequenceName = "SEQ_MAILING_LAYOUT_1", allocationSize = 1)
 public class MailingLayout1 implements Serializable {
 
     private static final long serialVersionUID = -456234151490523860L;
