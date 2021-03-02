@@ -14,6 +14,8 @@ public class MailingTypeDTO {
 
     private String layout;
 
+    private int numberOfFields;
+
     private DataControlDTO dataControl;
 
 
@@ -21,7 +23,9 @@ public class MailingTypeDTO {
         MailingType ret = new MailingType();
         ret.setId(dto.getId());
         ret.setLayout(dto.getLayout());
+        ret.setNumberOfFields(dto.getNumberOfFields());
         ret.setDataControl(DataControlDTO.convertToEntity(dto.getDataControl()));
+
         return ret;
     }
 
@@ -29,6 +33,7 @@ public class MailingTypeDTO {
         MailingTypeDTO ret = new MailingTypeDTO();
         ret.setId(entity.getId());
         ret.setLayout(entity.getLayout());
+        ret.setNumberOfFields(entity.getNumberOfFields());
         ret.setDataControl(DataControlDTO.convertToDTO(entity.getDataControl()));
         return ret;
     }
