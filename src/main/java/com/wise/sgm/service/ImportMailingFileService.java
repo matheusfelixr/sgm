@@ -65,6 +65,9 @@ public class ImportMailingFileService {
             importMailingFile.setEndDate(new Date());
             importMailingFile.setImportStatusEnum(ImportStatusEnum.FAIL);
             this.save(importMailingFile);
+            if(importMailingFile.getId() != null){
+                this.cancel(importMailingFile.getId(), "Erro ao gerar import de arquivo", currentUser);
+            }
             throw new ValidationException(e.getMessage());
         }catch (Exception e){
             e.printStackTrace();
@@ -72,6 +75,9 @@ public class ImportMailingFileService {
             importMailingFile.setEndDate(new Date());
             importMailingFile.setImportStatusEnum(ImportStatusEnum.FAIL);
             this.save(importMailingFile);
+            if(importMailingFile.getId() != null){
+                this.cancel(importMailingFile.getId(), "Erro ao gerar import de arquivo", currentUser);
+            }
             throw new ValidationException("Erro ao importar arquivo");
         }
     }

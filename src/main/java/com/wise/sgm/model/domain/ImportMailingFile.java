@@ -31,14 +31,14 @@ public class ImportMailingFile implements Serializable {
     @Column(name = "FILE", nullable = true)
     private byte[] file;
 
-    @Column(name = "NAME_FILE", nullable = true)
+    @Column(name = "NAME_FILE", nullable = true, length = 9999)
     private String nameFile;
 
     @Column(name = "IMPORT_STATUS", nullable = false)
     @Enumerated(EnumType.STRING)
     private ImportStatusEnum importStatusEnum;
 
-    @Column(name = "ERROR", nullable = true)
+    @Column(name = "ERROR", nullable = true, length = 9999)
     private String error;
 
     @Embedded
