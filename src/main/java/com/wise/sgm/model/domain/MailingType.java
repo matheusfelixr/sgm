@@ -21,6 +21,9 @@ public class MailingType implements Serializable {
     @Column(name = "LAYOUT", nullable = true)
     private String layout;
 
+    @Column(name = "NUMBER_OF_FIELDS", nullable = true)
+    private int numberOfFields;
+
     @Embedded
     private DataControlImpl dataControl;
 

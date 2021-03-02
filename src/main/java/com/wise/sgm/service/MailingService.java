@@ -59,7 +59,7 @@ public class MailingService {
 
         switch (mailingType.getLayout()) {
             case layout1:
-                createMailingLayout1(mailingType, multipartFile, importMailingFile,currentUser);
+                createMailingLayout1(mailingType, multipartFile, importMailingFile, currentUser, mailingType.getNumberOfFields());
                 break;
             default:
                 throw new ValidationException("Não foi encontrado layout procure o desenvolvedor");
@@ -67,7 +67,7 @@ public class MailingService {
 
     }
 
-    private void createMailingLayout1(MailingType mailingType, MultipartFile multipartFile, ImportMailingFile importMailingFile, UserAuthentication currentUser) throws Exception {
+    private void createMailingLayout1(MailingType mailingType, MultipartFile multipartFile, ImportMailingFile importMailingFile, UserAuthentication currentUser, int numberOfFields) throws Exception {
         java.io.File file = new java.io.File(multipartFile.getOriginalFilename());
         FileOutputStream in = new FileOutputStream(file);
         in.write(multipartFile.getBytes());
@@ -76,6 +76,7 @@ public class MailingService {
         BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file.getPath()), "ISO-8859-1"));
         Object[] lines = br.lines().toArray();
 
+        System.out.println("Quantidade de linhas: " + lines.length);
 
         for (Object line : lines) {
 
@@ -88,14 +89,18 @@ public class MailingService {
                 Mailing mailing = new Mailing();
                 mailing.getDataControl().markCreate(currentUser);
 
+                int numberOfColumns =0;
                 int index = 0;
                 int skip = 0;
                 int nextPipe = 0;
                 String lineFor = line.toString();
                 for (skip = 0; skip < 1; ) {
-
+                    numberOfColumns ++;
                     nextPipe = lineFor.indexOf("|");
                     if (nextPipe == -1) {
+                        if(numberOfFields != numberOfColumns){
+                            throw new ValidationException("Numero de colunas diferente do descrito no layout. Linha: " + line.toString());
+                        }
                         // setar o ultimo
                         mailingLayout1.setCAMPANHA(lineFor.substring(0, lineFor.length()));
                         skip = 1;
