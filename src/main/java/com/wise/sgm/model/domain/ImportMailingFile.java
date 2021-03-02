@@ -25,7 +25,7 @@ public class ImportMailingFile implements Serializable {
     private Date startDate;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "END_DATE", nullable = false)
+    @Column(name = "END_DATE", nullable = true)
     private Date endDate;
 
     @Column(name = "FILE", nullable = true)
