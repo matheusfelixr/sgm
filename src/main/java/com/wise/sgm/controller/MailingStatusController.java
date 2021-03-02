@@ -43,14 +43,14 @@ public class MailingStatusController {
             return ResponseEntity.ok(response);
         }catch (ValidationException e) {
             LOGGER.error(e.getMessage());
-            List<String> erros = Arrays.asList(e.getMessage());
-            response.setErrors(erros);
+            List<String> errors = Arrays.asList(e.getMessage());
+            response.setErrors(errors);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             e.printStackTrace();
             LOGGER.error("Erro inesperado ao criar novo mailing status");
-            List<String> erros = Arrays.asList("Erro inesperado ao criar novo mailing status");
-            response.setErrors(erros);
+            List<String> errors = Arrays.asList("Erro inesperado ao criar novo mailing status");
+            response.setErrors(errors);
             return ResponseEntity.ok(response);
         }
     }
@@ -68,14 +68,14 @@ public class MailingStatusController {
             return ResponseEntity.ok(response);
         }catch (ValidationException e) {
             LOGGER.error(e.getMessage());
-            List<String> erros = Arrays.asList(e.getMessage());
-            response.setErrors(erros);
+            List<String> errors = Arrays.asList(e.getMessage());
+            response.setErrors(errors);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             e.printStackTrace();
             LOGGER.error("Erro inesperado ao buscar mailing status");
-            List<String> erros = Arrays.asList("Erro inesperado ao buscar mailing status");
-            response.setErrors(erros);
+            List<String> errors = Arrays.asList("Erro inesperado ao buscar mailing status");
+            response.setErrors(errors);
             return ResponseEntity.ok(response);
         }
     }
@@ -91,8 +91,8 @@ public class MailingStatusController {
         }catch (Exception e) {
             e.printStackTrace();
             LOGGER.error("Erro inesperado ao buscar reason mailing");
-            List<String> erros = Arrays.asList("Erro inesperado ao buscar reason mailing");
-            response.setErrors(erros);
+            List<String> errors = Arrays.asList("Erro inesperado ao buscar reason mailing");
+            response.setErrors(errors);
             return ResponseEntity.ok(response);
         }
     }

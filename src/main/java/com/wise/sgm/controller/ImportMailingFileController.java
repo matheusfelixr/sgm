@@ -44,14 +44,14 @@ public class ImportMailingFileController {
             return ResponseEntity.ok(response);
         }catch (ValidationException e) {
             LOGGER.error(e.getMessage());
-            List<String> erros = Arrays.asList(e.getMessage());
-            response.setErrors(erros);
+            List<String> errors = Arrays.asList(e.getMessage());
+            response.setErrors(errors);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             e.printStackTrace();
             LOGGER.error("Erro inesperado ao realizar importacao");
-            List<String> erros = Arrays.asList("Erro inesperado ao realizar importação");
-            response.setErrors(erros);
+            List<String> errors = Arrays.asList("Erro inesperado ao realizar importação");
+            response.setErrors(errors);
             return ResponseEntity.ok(response);
         }
     }
@@ -66,37 +66,37 @@ public class ImportMailingFileController {
             return ResponseEntity.ok(response);
         }catch (ValidationException e) {
             LOGGER.error(e.getMessage());
-            List<String> erros = Arrays.asList(e.getMessage());
-            response.setErrors(erros);
+            List<String> errors = Arrays.asList(e.getMessage());
+            response.setErrors(errors);
             return ResponseEntity.status(HttpStatus.OK).body(response);
         } catch (Exception e) {
             e.printStackTrace();
             LOGGER.error("Erro inesperado ao realizar processo de buscar todos os imports de arquivo");
-            List<String> erros = Arrays.asList("Erro inesperado ao realizar processo de buscar todos os imports de arquivo");
-            response.setErrors(erros);
+            List<String> errors = Arrays.asList("Erro inesperado ao realizar processo de buscar todos os imports de arquivo");
+            response.setErrors(errors);
             return ResponseEntity.status(HttpStatus.OK).body(response);
         }
     }
 
-    @GetMapping(value  = "/cancel/{id}")
-    public ResponseEntity<ResponseApi<ImportMailingFileDTO>> cancel(@PathVariable(value = "id") Long id)  {
+    @PutMapping(value  = "/cancel/{id}/{obs}")
+    public ResponseEntity<ResponseApi<ImportMailingFileDTO>> cancel(@PathVariable(value = "id") Long id, @PathVariable(value = "obs") String observationCancel)  {
         LOGGER.debug("Inicio processo de cancelamento imports de arquivo.");
         ResponseApi<ImportMailingFileDTO> response = new ResponseApi<>();
         try {
             UserAuthentication currentUser = securityService.getCurrentUser();
-            response.setData(ImportMailingFileDTO.convertToDTO(this.importMailingFileService.cancel(id, currentUser)));
+            response.setData(ImportMailingFileDTO.convertToDTO(this.importMailingFileService.cancel(id,observationCancel, currentUser)));
             LOGGER.debug("Cancelamento de import de arquivo realizado com sucesso.");
             return ResponseEntity.ok(response);
         }catch (ValidationException e) {
             LOGGER.error(e.getMessage());
-            List<String> erros = Arrays.asList(e.getMessage());
-            response.setErrors(erros);
+            List<String> errors = Arrays.asList(e.getMessage());
+            response.setErrors(errors);
             return ResponseEntity.status(HttpStatus.OK).body(response);
         } catch (Exception e) {
             e.printStackTrace();
             LOGGER.error("Erro inesperado ao realizar c ancelamento de import de arquivo");
-            List<String> erros = Arrays.asList("Erro inesperado ao realizar c ancelamento de import de arquivo");
-            response.setErrors(erros);
+            List<String> errors = Arrays.asList("Erro inesperado ao realizar c ancelamento de import de arquivo");
+            response.setErrors(errors);
             return ResponseEntity.status(HttpStatus.OK).body(response);
         }
     }
@@ -108,23 +108,23 @@ public class ImportMailingFileController {
         ResponseApi<DownloadFileImportMailingFileDTO> response = new ResponseApi<>();
         try {
             Optional<ImportMailingFile> importMailingFile = this.importMailingFileService.findById(id);
-                if(!importMailingFile.isPresent()){
-                    throw new ValidationException("Não encontrado import com codigo informado");
-                }
+            if(!importMailingFile.isPresent()){
+                throw new ValidationException("Não encontrado import com codigo informado");
+            }
 
             response.setData(new DownloadFileImportMailingFileDTO(importMailingFile.get().getFile()));
             LOGGER.debug("Cancelamento de import de arquivo realizado com sucesso.");
             return ResponseEntity.ok(response);
         }catch (ValidationException e) {
             LOGGER.error(e.getMessage());
-            List<String> erros = Arrays.asList(e.getMessage());
-            response.setErrors(erros);
+            List<String> errors = Arrays.asList(e.getMessage());
+            response.setErrors(errors);
             return ResponseEntity.status(HttpStatus.OK).body(response);
         } catch (Exception e) {
             e.printStackTrace();
             LOGGER.error("Erro inesperado ao realizar c ancelamento de import de arquivo");
-            List<String> erros = Arrays.asList("Erro inesperado ao realizar c ancelamento de import de arquivo");
-            response.setErrors(erros);
+            List<String> errors = Arrays.asList("Erro inesperado ao realizar c ancelamento de import de arquivo");
+            response.setErrors(errors);
             return ResponseEntity.status(HttpStatus.OK).body(response);
         }
     }

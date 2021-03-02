@@ -41,14 +41,14 @@ public class MailingTypeController {
             return ResponseEntity.ok(response);
         }catch (ValidationException e) {
             LOGGER.error(e.getMessage());
-            List<String> erros = Arrays.asList(e.getMessage());
-            response.setErrors(erros);
+            List<String> errors = Arrays.asList(e.getMessage());
+            response.setErrors(errors);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             e.printStackTrace();
             LOGGER.error("Erro inesperado ao realizar importacao");
-            List<String> erros = Arrays.asList("Erro inesperado ao realizar importação");
-            response.setErrors(erros);
+            List<String> errors = Arrays.asList("Erro inesperado ao realizar importação");
+            response.setErrors(errors);
             return ResponseEntity.ok(response);
         }
     }

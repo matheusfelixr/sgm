@@ -164,7 +164,7 @@ public class MailingService {
 
                     index++;
                 }
-                MailingLayout1 save = this.mailingLayout1Service.save(mailingLayout1);
+                MailingLayout1 save = this.mailingLayout1Service.saveNew(mailingLayout1);
                 mailing.setMailingLayout1(save);
                 this.save(mailing);
             }
@@ -213,6 +213,10 @@ public class MailingService {
             throw new ValidationException("Status já salvo. Favor printar tela e  atualize. Favor informar ao suporte.");
         }
 
+    }
+
+    public List<Mailing> findByMailingLayout1(MailingLayout1 mailingLayout1){
+        return this.mailingRepository.findByMailingLayout1(mailingLayout1);
     }
 
 }

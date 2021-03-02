@@ -2,6 +2,7 @@ package com.wise.sgm.repository;
 
 import com.wise.sgm.model.domain.Mailing;
 import com.wise.sgm.model.domain.UserAuthentication;
+import com.wise.sgm.model.domain.mailingLayouts.MailingLayout1;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -32,4 +33,5 @@ public interface MailingRepository extends JpaRepository<Mailing, Long> {
      */
     List<Mailing> findBySentToUserIsNullAndMailingStatusIsNullAndDateSentToUserIsNotNullAndCancellationCancellationDateIsNullOrderByDataControlCreateDate();
 
+    List<Mailing> findByMailingLayout1(MailingLayout1 mailingLayout1);
 }

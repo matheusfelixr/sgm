@@ -40,8 +40,8 @@ public class SecurityController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			LOGGER.error("Erro inesperado ao tentar autenticar");
-			List<String> erros = Arrays.asList("Erro inesperado ao tentar autenticar");
-			response.setErrors(erros);
+			List<String> errors = Arrays.asList("Erro inesperado ao tentar autenticar");
+			response.setErrors(errors);
 			return ResponseEntity.ok(response);
 		}
 	}
@@ -61,8 +61,8 @@ public class SecurityController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			LOGGER.error("Erro inesperado ao tentar resetar senha");
-			List<String> erros = Arrays.asList("Erro inesperado ao tentar resetar senha");
-			response.setErrors(erros);
+			List<String> errors = Arrays.asList("Erro inesperado ao tentar resetar senha");
+			response.setErrors(errors);
 			return ResponseEntity.ok(response);
 		}
 	}
@@ -83,8 +83,8 @@ public class SecurityController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			LOGGER.error("Erro inesperado ao tentar criar novo usuário");
-			List<String> erros = Arrays.asList("Erro inesperado ao tentar criar novo usuário");
-			response.setErrors(erros);
+			List<String> errors = Arrays.asList("Erro inesperado ao tentar criar novo usuário");
+			response.setErrors(errors);
 			return ResponseEntity.ok(response);
 		}
 	}
@@ -104,11 +104,9 @@ public class SecurityController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			LOGGER.error("Erro inesperado ao tentar autenticar");
-			List<String> erros = Arrays.asList("Erro inesperado ao tentar autenticar");
-			response.setErrors(erros);
+			List<String> errors = Arrays.asList("Erro inesperado ao tentar autenticar");
+			response.setErrors(errors);
 			return ResponseEntity.ok(response);
 		}
 	}
-
-
 }

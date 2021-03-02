@@ -36,7 +36,7 @@ public class CancellationImpl implements Serializable {
 		this.setCancellationUser(cancellationUser);
 	}
 	public boolean isCancelled() {
-		if(cancellationDate == null){
+		if(cancellationDate != null || cancellationObservation != null || cancellationUser != null){
 			return true;
 		}
 		return false;
