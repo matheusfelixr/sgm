@@ -84,9 +84,6 @@ public class MailingTypeService {
                 nextPipe = lineFor.indexOf("|");
                 if (nextPipe == -1) {
                     skip = 1;
-                    System.out.println(lineFor);
-                }else{
-                    System.out.println(lineFor);
                 }
                 lineFor = lineFor.substring(nextPipe + 1, lineFor.length());
             }
