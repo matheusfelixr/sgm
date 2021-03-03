@@ -15,7 +15,7 @@ public class GenerateClassService {
         String nameClass = "PeRsoN";
         nameClass = nameClass.toLowerCase();
         nameClass = StringUtils.capitalize(nameClass);
-        
+
         String nameEntity = "person";
         nameEntity = nameEntity.toUpperCase();
 
@@ -26,16 +26,16 @@ public class GenerateClassService {
 
 
 
-
-
+        Boolean isDataControl = true;
+        Boolean isCancelled = true;
         String directoryTypeClassEntity = "/model/domain/";
-        CreateEntity(nameClass, nameEntity, nameSystem, domain, directoryBase, directoryTypeClassEntity);
+        CreateEntity(nameClass, nameEntity, nameSystem, domain, directoryBase, directoryTypeClassEntity, isDataControl, isCancelled);
 
         String directoryTypeClassRepository = "/repository/";
         createRepository(nameClass, nameSystem, domain, directoryBase, directoryTypeClassRepository);
     }
 
-    private void CreateEntity(String nameClass, String nameEntity, String nameSystem, String domain, String directoryBase, String directoryTypeClassEntity) throws IOException {
+    private void CreateEntity(String nameClass, String nameEntity, String nameSystem, String domain, String directoryBase, String directoryTypeClassEntity, Boolean isDataControl, Boolean isCancelled) throws IOException {
         String directoryFull = directoryBase + domain.replace(".", "/") + "/" + nameSystem + directoryTypeClassEntity;
 
         FileWriter arq = new FileWriter(directoryFull + nameClass + ".java");
@@ -59,6 +59,34 @@ public class GenerateClassService {
         printWriter.println("\t@Column(name = \"id\")");
         printWriter.println("\t@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = \"SEQ_" + nameEntity + "\")");
         printWriter.println("\tprivate Long id;");
+
+        if(isDataControl){
+            printWriter.println("\n\t@Embedded");
+            printWriter.println("\tprivate DataControlImpl dataControl;");
+        }
+
+        if(isCancelled){
+            printWriter.println("\n\t@Embedded");
+            printWriter.println("\tprivate CancellationImpl cancellation;");
+        }
+
+        if(isDataControl){
+            printWriter.println("\n\tpublic DataControlImpl getDataControl() {");
+            printWriter.println("\t\tif(this.dataControl== null){");
+            printWriter.println("\t\t\tdataControl = new DataControlImpl();");
+            printWriter.println("\t\t}");
+            printWriter.println("\t\treturn dataControl;");
+            printWriter.println("\t}");
+        }
+
+        if(isCancelled){
+            printWriter.println("\n\tpublic CancellationImpl getCancellation() {");
+            printWriter.println("\t\tif(this.cancellation== null){");
+            printWriter.println("\t\t\tcancellation = new CancellationImpl();");
+            printWriter.println("\t\t}");
+            printWriter.println("\t\treturn cancellation;");
+            printWriter.println("\t}");
+        }
 
         printWriter.println("\n}");
 
