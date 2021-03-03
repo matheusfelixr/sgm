@@ -18,4 +18,24 @@ public class Person implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_PERSON")
 	private Long id;
 
+	@Embedded
+	private DataControlImpl dataControl;
+
+	@Embedded
+	private CancellationImpl cancellation;
+
+	public DataControlImpl getDataControl() {
+		if(this.dataControl== null){
+			dataControl = new DataControlImpl();
+		}
+		return dataControl;
+	}
+
+	public CancellationImpl getCancellation() {
+		if(this.cancellation== null){
+			cancellation = new CancellationImpl();
+		}
+		return cancellation;
+	}
+
 }
