@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.xml.bind.ValidationException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class GenerateClassController {
         ResponseApi<String> response = new ResponseApi<>();
         try {
             UserAuthentication currentUser = securityService.getCurrentUser();
-            this.generateClassService.generateClass();
+            this.generateClassService.generateClass(new ArrayList<>());
             response.setData("oapoap");
             LOGGER.debug("Importacao realizada com sucesso.");
             return ResponseEntity.ok(response);

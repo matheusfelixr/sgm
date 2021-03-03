@@ -6,11 +6,13 @@ import org.springframework.util.StringUtils;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class GenerateClassService {
 
-    public void generateClass() throws IOException {
+    public void generateClass(List<String> attributes) throws IOException {
 
         String nameClass = "PeRsoN";
         nameClass = nameClass.toLowerCase();
@@ -25,17 +27,16 @@ public class GenerateClassService {
         String directoryBase = "src/main/java/";
 
 
-
         Boolean isDataControl = true;
         Boolean isCancelled = true;
         String directoryTypeClassEntity = "/model/domain/";
-        CreateEntity(nameClass, nameEntity, nameSystem, domain, directoryBase, directoryTypeClassEntity, isDataControl, isCancelled);
+        CreateEntity(nameClass, nameEntity, nameSystem, domain, directoryBase, directoryTypeClassEntity, isDataControl, isCancelled, attributes);
 
         String directoryTypeClassRepository = "/repository/";
         createRepository(nameClass, nameSystem, domain, directoryBase, directoryTypeClassRepository);
     }
 
-    private void CreateEntity(String nameClass, String nameEntity, String nameSystem, String domain, String directoryBase, String directoryTypeClassEntity, Boolean isDataControl, Boolean isCancelled) throws IOException {
+    private void CreateEntity(String nameClass, String nameEntity, String nameSystem, String domain, String directoryBase, String directoryTypeClassEntity, Boolean isDataControl, Boolean isCancelled, List<String> attributes) throws IOException {
         String directoryFull = directoryBase + domain.replace(".", "/") + "/" + nameSystem + directoryTypeClassEntity;
 
         FileWriter arq = new FileWriter(directoryFull + nameClass + ".java");
@@ -59,6 +60,11 @@ public class GenerateClassService {
         printWriter.println("\t@Column(name = \"id\")");
         printWriter.println("\t@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = \"SEQ_" + nameEntity + "\")");
         printWriter.println("\tprivate Long id;");
+
+        for(String attribute :attributes){
+            printWriter.println("\n\t@Column(name = \""+attribute.toUpperCase()+"\")");
+            printWriter.println("\tprivate String "+attribute+";");
+        }
 
         if(isDataControl){
             printWriter.println("\n\t@Embedded");
