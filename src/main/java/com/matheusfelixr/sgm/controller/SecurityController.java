@@ -1,10 +1,9 @@
 package com.matheusfelixr.sgm.controller;
 
-import com.matheusfelixr.sgm.model.dto.security.*;
-import com.matheusfelixr.sgm.service.SecurityService;
 import com.matheusfelixr.sgm.model.dto.MessageDTO;
 import com.matheusfelixr.sgm.model.dto.config.ResponseApi;
-import com.wise.sgm.model.dto.security.*;
+import com.matheusfelixr.sgm.model.dto.security.*;
+import com.matheusfelixr.sgm.service.SecurityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -4,7 +4,6 @@ import com.matheusfelixr.sgm.model.domain.CancellationImpl;
 import com.matheusfelixr.sgm.model.domain.DataControlImpl;
 import com.matheusfelixr.sgm.model.domain.ImportMailingFile;
 import com.matheusfelixr.sgm.model.domain.MailingType;
-import com.wise.sgm.model.domain.*;
 import lombok.Data;
 
 import javax.persistence.*;

@@ -1,11 +1,10 @@
 package com.matheusfelixr.sgm.service;
 
 import com.matheusfelixr.sgm.model.domain.*;
-import com.matheusfelixr.sgm.repository.MailingRepository;
-import com.matheusfelixr.sgm.service.mailingLayouts.MailingLayout1Service;
-import com.wise.sgm.model.domain.*;
 import com.matheusfelixr.sgm.model.domain.mailingLayouts.MailingLayout1;
 import com.matheusfelixr.sgm.model.dto.MessageDTO;
+import com.matheusfelixr.sgm.repository.MailingRepository;
+import com.matheusfelixr.sgm.service.mailingLayouts.MailingLayout1Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

@@ -6,7 +6,6 @@ import com.matheusfelixr.sgm.model.dto.security.AuthenticateRequestDTO;
 import com.matheusfelixr.sgm.model.dto.security.AuthenticateResponseDTO;
 import com.matheusfelixr.sgm.model.dto.security.CreateUserRequestDTO;
 import com.matheusfelixr.sgm.model.dto.security.NewPasswordRequestDTO;
-import com.wise.sgm.model.dto.security.*;
 import com.matheusfelixr.sgm.security.JwtTokenUtil;
 import com.matheusfelixr.sgm.util.EmailHelper;
 import com.matheusfelixr.sgm.util.Password;
