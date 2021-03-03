@@ -1,6 +1,5 @@
 package com.matheusfelixr.sgm.model.domain;
 
-import com.matheusfelixr.sgm.model.domain.mailingLayouts.MailingLayout1;
 import lombok.Data;
 
 import javax.persistence.*;

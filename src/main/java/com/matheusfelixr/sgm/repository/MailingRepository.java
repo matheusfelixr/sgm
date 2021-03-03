@@ -2,7 +2,7 @@ package com.matheusfelixr.sgm.repository;
 
 import com.matheusfelixr.sgm.model.domain.UserAuthentication;
 import com.matheusfelixr.sgm.model.domain.Mailing;
-import com.matheusfelixr.sgm.model.domain.mailingLayouts.MailingLayout1;
+import com.matheusfelixr.sgm.model.domain.MailingLayout1;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

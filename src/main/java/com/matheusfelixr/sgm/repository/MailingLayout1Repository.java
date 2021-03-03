@@ -1,7 +1,7 @@
-package com.matheusfelixr.sgm.repository.mailingLayouts;
+package com.matheusfelixr.sgm.repository;
 
 import com.matheusfelixr.sgm.model.domain.ImportMailingFile;
-import com.matheusfelixr.sgm.model.domain.mailingLayouts.MailingLayout1;
+import com.matheusfelixr.sgm.model.domain.MailingLayout1;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

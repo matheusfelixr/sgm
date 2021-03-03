@@ -1,4 +1,4 @@
-package com.matheusfelixr.sgm.model.domain.mailingLayouts;
+package com.matheusfelixr.sgm.model.domain;
 
 import com.matheusfelixr.sgm.model.domain.CancellationImpl;
 import com.matheusfelixr.sgm.model.domain.DataControlImpl;

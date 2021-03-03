@@ -1,7 +1,7 @@
 package com.matheusfelixr.sgm.service;
 
 import com.matheusfelixr.sgm.model.domain.*;
-import com.matheusfelixr.sgm.model.domain.mailingLayouts.MailingLayout1;
+import com.matheusfelixr.sgm.model.domain.MailingLayout1;
 import com.matheusfelixr.sgm.model.dto.MessageDTO;
 import com.matheusfelixr.sgm.repository.MailingRepository;
 import com.matheusfelixr.sgm.service.mailingLayouts.MailingLayout1Service;
