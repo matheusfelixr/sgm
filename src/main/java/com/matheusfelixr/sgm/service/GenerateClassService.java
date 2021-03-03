@@ -1,8 +1,8 @@
 package com.matheusfelixr.sgm.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,7 +12,10 @@ public class GenerateClassService {
 
     public void generateClass() throws IOException {
 
-        String nameClass = "Person";
+        String nameClass = "PeRsoN";
+        nameClass = nameClass.toLowerCase();
+        nameClass = StringUtils.capitalize(nameClass);
+        
         String nameEntity = "person";
         nameEntity = nameEntity.toUpperCase();
 
@@ -20,13 +23,24 @@ public class GenerateClassService {
         String domain = "com.matheusfelixr";
 
         String directoryBase = "src/main/java/";
+
+
+
+
+
         String directoryTypeClassEntity = "/model/domain/";
+        CreateEntity(nameClass, nameEntity, nameSystem, domain, directoryBase, directoryTypeClassEntity);
 
-        String directoryFull = directoryBase + domain.replace(".", "/")+"/"+nameSystem+directoryTypeClassEntity;
+        String directoryTypeClassRepository = "/repository/";
+        createRepository(nameClass, nameSystem, domain, directoryBase, directoryTypeClassRepository);
+    }
 
-        FileWriter arq = new FileWriter(directoryFull +nameClass+".java");
+    private void CreateEntity(String nameClass, String nameEntity, String nameSystem, String domain, String directoryBase, String directoryTypeClassEntity) throws IOException {
+        String directoryFull = directoryBase + domain.replace(".", "/") + "/" + nameSystem + directoryTypeClassEntity;
+
+        FileWriter arq = new FileWriter(directoryFull + nameClass + ".java");
         PrintWriter printWriter = new PrintWriter(arq);
-        printWriter.println("package "+ domain +"."+ nameSystem +".model.domain;");
+        printWriter.println("package " + domain + "." + nameSystem + ".model.domain;");
 
         printWriter.println("\nimport lombok.Data;");
 
@@ -35,39 +49,35 @@ public class GenerateClassService {
 
         printWriter.println("\n@Data");
         printWriter.println("@Entity");
-        printWriter.println("@Table(name = \""+nameEntity+"\")");
-        printWriter.println("@SequenceGenerator(name = \"SEQ_"+nameEntity+"\", sequenceName = \"SEQ_"+nameEntity+"\", allocationSize = 1)");
-        printWriter.println("public class "+nameClass+" implements Serializable {");
+        printWriter.println("@Table(name = \"" + nameEntity + "\")");
+        printWriter.println("@SequenceGenerator(name = \"SEQ_" + nameEntity + "\", sequenceName = \"SEQ_" + nameEntity + "\", allocationSize = 1)");
+        printWriter.println("public class " + nameClass + " implements Serializable {");
 
         printWriter.println("\n\tprivate static final long serialVersionUID = -1L;");
 
         printWriter.println("\n\t@Id");
         printWriter.println("\t@Column(name = \"id\")");
-        printWriter.println("\t@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = \"SEQ_"+nameEntity+"\")");
+        printWriter.println("\t@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = \"SEQ_" + nameEntity + "\")");
         printWriter.println("\tprivate Long id;");
 
         printWriter.println("\n}");
 
         arq.close();
-
-
-        String directoryTypeClassRepository = "/repository/";
-       createRepository(nameClass, nameSystem, domain, directoryBase, directoryTypeClassRepository);
     }
 
     private void createRepository(String nameClass, String nameSystem, String domain, String directoryBase, String directoryTypeClass) throws IOException {
 
-        String directoryFull = directoryBase + domain.replace(".", "/")+"/"+nameSystem+directoryTypeClass;
+        String directoryFull = directoryBase + domain.replace(".", "/") + "/" + nameSystem + directoryTypeClass;
 
 
-        FileWriter arq = new FileWriter(directoryFull + nameClass +"Repository.java");
+        FileWriter arq = new FileWriter(directoryFull + nameClass + "Repository.java");
         PrintWriter printWriter = new PrintWriter(arq);
 
-        printWriter.println("package "+ domain +"."+ nameSystem +".repository;");
-        printWriter.println("\nimport "+ domain +"."+ nameSystem +".model.domain."+ nameClass +";");
+        printWriter.println("package " + domain + "." + nameSystem + ".repository;");
+        printWriter.println("\nimport " + domain + "." + nameSystem + ".model.domain." + nameClass + ";");
         printWriter.println("import org.springframework.data.jpa.repository.JpaRepository;");
 
-        printWriter.println("\npublic interface "+ nameClass +"Repository extends JpaRepository<"+ nameClass +", Long> {");
+        printWriter.println("\npublic interface " + nameClass + "Repository extends JpaRepository<" + nameClass + ", Long> {");
         printWriter.println("\n}\n");
 
         arq.close();
