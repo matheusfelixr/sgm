@@ -14,6 +14,7 @@ public class GenerateClassService {
 
         String nameClass = "Person";
         String nameEntity = "person";
+        nameEntity = nameEntity.toUpperCase();
 
         String nameSystem = "sgm";
         String domain = "com.matheusfelixr";
@@ -34,15 +35,24 @@ public class GenerateClassService {
 
         printWriter.println("\n@Data");
         printWriter.println("@Entity");
-        printWriter.println("@Table(name = \""+nameEntity.toUpperCase()+"\" )");
+        printWriter.println("@Table(name = \""+nameEntity+"\")");
+        printWriter.println("@SequenceGenerator(name = \"SEQ_"+nameEntity+"\", sequenceName = \"SEQ_"+nameEntity+"\", allocationSize = 1)");
+        printWriter.println("public class "+nameClass+" implements Serializable {");
 
+        printWriter.println("\n\tprivate static final long serialVersionUID = -1L;");
 
+        printWriter.println("\n\t@Id");
+        printWriter.println("\t@Column(name = \"id\")");
+        printWriter.println("\t@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = \"SEQ_"+nameEntity+"\")");
+        printWriter.println("\tprivate Long id;");
+
+        printWriter.println("\n}");
 
         arq.close();
 
 
         String directoryTypeClassRepository = "/repository/";
-      //  createRepository(nameClass, nameSystem, domain, directoryBase, directoryTypeClassRepository);
+       createRepository(nameClass, nameSystem, domain, directoryBase, directoryTypeClassRepository);
     }
 
     private void createRepository(String nameClass, String nameSystem, String domain, String directoryBase, String directoryTypeClass) throws IOException {
