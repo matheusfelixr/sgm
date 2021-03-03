@@ -3,7 +3,6 @@ package com.matheusfelixr.sgm.service;
 import com.matheusfelixr.sgm.model.domain.UserAuthentication;
 import com.matheusfelixr.sgm.model.enums.ImportStatusEnum;
 import com.matheusfelixr.sgm.repository.ImportMailingFileRepository;
-import com.matheusfelixr.sgm.service.mailingLayouts.MailingLayout1Service;
 import com.matheusfelixr.sgm.model.domain.ImportMailingFile;
 import com.matheusfelixr.sgm.model.domain.MailingType;
 import org.springframework.beans.factory.annotation.Autowired;

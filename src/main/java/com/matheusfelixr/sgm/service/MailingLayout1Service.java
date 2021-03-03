@@ -1,4 +1,4 @@
-package com.matheusfelixr.sgm.service.mailingLayouts;
+package com.matheusfelixr.sgm.service;
 
 import com.matheusfelixr.sgm.model.domain.UserAuthentication;
 import com.matheusfelixr.sgm.model.domain.DataControlImpl;
