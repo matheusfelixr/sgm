@@ -83,10 +83,6 @@ public class MailingLayout1 implements Serializable {
     @JoinColumn(name = "MAILING_TYPE", referencedColumnName = "ID")
     private MailingType mailingType;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "IMPORT_MAILING_FILE", referencedColumnName = "ID")
-    private ImportMailingFile importMailingFile;
-
     @Embedded
     private CancellationImpl cancellation;
 

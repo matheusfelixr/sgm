@@ -42,8 +42,12 @@ public class Mailing implements Serializable {
     private UserAuthentication sentToUser;
 
     @ManyToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "TMAILING_EXPORT_MAILING", joinColumns = @JoinColumn(name = "MAILING", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "EXPORT_MAILING", referencedColumnName = "ID"))
+    @JoinTable(name = "MAILING_EXPORT_MAILING_RELATION", joinColumns = @JoinColumn(name = "MAILING", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "EXPORT_MAILING", referencedColumnName = "ID"))
     private List<ExportMailing> exportMailings;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "IMPORT_MAILING_FILE", referencedColumnName = "ID")
+    private ImportMailingFile importMailingFile;
 
 
     //Layouts vão aqui cada layout novo deve ser adicionado aqui
