@@ -32,9 +32,9 @@ public class MailingTypeService {
             throw new ValidationException("Arquivo não encontrado");
         }
         String layout = getLayout(multipartFile);
-        Optional<MailingType> maillingTypeByLayout = this.findByLayout(layout);
+        Optional<MailingType> mailingTypeByLayout = this.findByLayout(layout);
 
-        if (maillingTypeByLayout.isPresent()) {
+        if (mailingTypeByLayout.isPresent()) {
             throw new ValidationException("Layout já existe");
         }
         mailingType.setLayout(layout);
