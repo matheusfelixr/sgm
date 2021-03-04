@@ -9,15 +9,15 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "EXPORT_MAILING")
-@SequenceGenerator(name = "SEQ_EXPORT_MAILING", sequenceName = "SEQ_EXPORT_MAILING", allocationSize = 1)
-public class ExportMailing implements Serializable {
+@Table(name = "EXPORT_MAILING_FILE")
+@SequenceGenerator(name = "SEQ_EXPORT_MAILING_FILE", sequenceName = "SEQ_EXPORT_MAILING_FILE", allocationSize = 1)
+public class ExportMailingFile implements Serializable {
 
     private static final long serialVersionUID = -342018151490523860L;
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_EXPORT_MAILING")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_EXPORT_MAILING_FILE")
     private Long id;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -36,10 +36,13 @@ public class ExportMailing implements Serializable {
     @Column(name = "END_DATE_EXPORT", nullable = true)
     private Date endDateExport;
 
+    @Column(name = "IS_ALREADY_EXPORTED", columnDefinition = "boolean default false", nullable = false)
+    private Boolean isAlreadyExported;
+
     @Column(name = "FILE", nullable = true)
     private byte[] file;
 
-    @ManyToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "exportMailings")
+    @ManyToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "exportMailingFiles")
     private List<Mailing> mailings;
 
     @Embedded

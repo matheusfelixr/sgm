@@ -7,6 +7,7 @@ import com.matheusfelixr.sgm.model.domain.MailingLayout1;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.Date;
 import java.util.List;
 
 public interface MailingRepository extends JpaRepository<Mailing, Long> {
@@ -37,4 +38,7 @@ public interface MailingRepository extends JpaRepository<Mailing, Long> {
     List<Mailing> findByMailingLayout1(MailingLayout1 mailingLayout1);
 
     List<Mailing> findByImportMailingFile(ImportMailingFile importMailingFile);
+
+    List<Mailing> findByEndDateBetweenAndCancellationCancellationDateIsNullAndMailingStatusIsNotNull(Date startDateExport, Date endDateExport);
 }
+

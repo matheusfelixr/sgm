@@ -1,7 +1,6 @@
 package com.matheusfelixr.sgm.service;
 
 import com.matheusfelixr.sgm.model.domain.*;
-import com.matheusfelixr.sgm.model.domain.MailingLayout1;
 import com.matheusfelixr.sgm.model.dto.MessageDTO;
 import com.matheusfelixr.sgm.repository.MailingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -240,10 +239,15 @@ public class MailingService {
     public void cancelByImportMailingFile(ImportMailingFile importMailingFile, UserAuthentication currentUser, String observationCancel) {
         List<Mailing> mailings = this.findByImportMailingFile(importMailingFile);
 
-        for(Mailing mailing : mailings) {
+        for (Mailing mailing : mailings) {
             mailing.getCancellation().markCanceled(observationCancel, currentUser);
             mailing.getMailingLayout1().getCancellation().markCanceled(observationCancel, currentUser);
         }
         this.mailingRepository.saveAll(mailings);
+    }
+
+    public List<Mailing> findAttendanceByStartDateAndEndDate(Date startDateExport, Date endDateExport) {
+
+        return this.mailingRepository.findByEndDateBetweenAndCancellationCancellationDateIsNullAndMailingStatusIsNotNull(startDateExport, endDateExport);
     }
 }

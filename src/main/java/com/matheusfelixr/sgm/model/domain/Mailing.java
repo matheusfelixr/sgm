@@ -6,7 +6,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @Entity
@@ -42,8 +41,8 @@ public class Mailing implements Serializable {
     private UserAuthentication sentToUser;
 
     @ManyToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "MAILING_EXPORT_MAILING_RELATION", joinColumns = @JoinColumn(name = "MAILING", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "EXPORT_MAILING", referencedColumnName = "ID"))
-    private List<ExportMailing> exportMailings;
+    @JoinTable(name = "MAILING_EXPORT_MAILING_FILE", joinColumns = @JoinColumn(name = "MAILING", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "EXPORT_MAILING_File", referencedColumnName = "ID"))
+    private List<ExportMailingFile> exportMailingFiles;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "IMPORT_MAILING_FILE", referencedColumnName = "ID")
