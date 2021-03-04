@@ -84,10 +84,11 @@ public class MailingService {
                     MailingLayout1 mailingLayout1 = new MailingLayout1();
                     mailingLayout1.getDataControl().markCreate(currentUser);
                     mailingLayout1.setMailingType(mailingType);
-                    mailingLayout1.setImportMailingFile(importMailingFile);
+
 
                     Mailing mailing = new Mailing();
                     mailing.getDataControl().markCreate(currentUser);
+                    mailing.setImportMailingFile(importMailingFile);
 
                     int numberOfColumns = 0;
                     int index = 0;
@@ -226,11 +227,23 @@ public class MailingService {
         if (mailing.get().getMailingStatus() != null) {
             throw new ValidationException("Status já salvo. Favor printar tela e  atualize. Favor informar ao suporte.");
         }
-
     }
 
     public List<Mailing> findByMailingLayout1(MailingLayout1 mailingLayout1) {
         return this.mailingRepository.findByMailingLayout1(mailingLayout1);
     }
 
+    public List<Mailing> findByImportMailingFile(ImportMailingFile importMailingFile) {
+        return this.mailingRepository.findByImportMailingFile(importMailingFile);
+    }
+
+    public void cancelByImportMailingFile(ImportMailingFile importMailingFile, UserAuthentication currentUser, String observationCancel) {
+        List<Mailing> mailings = this.findByImportMailingFile(importMailingFile);
+
+        for(Mailing mailing : mailings) {
+            mailing.getCancellation().markCanceled(observationCancel, currentUser);
+            mailing.getMailingLayout1().getCancellation().markCanceled(observationCancel, currentUser);
+        }
+        this.mailingRepository.saveAll(mailings);
+    }
 }

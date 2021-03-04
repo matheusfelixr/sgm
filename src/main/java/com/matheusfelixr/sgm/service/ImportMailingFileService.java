@@ -1,10 +1,10 @@
 package com.matheusfelixr.sgm.service;
 
+import com.matheusfelixr.sgm.model.domain.ImportMailingFile;
+import com.matheusfelixr.sgm.model.domain.MailingType;
 import com.matheusfelixr.sgm.model.domain.UserAuthentication;
 import com.matheusfelixr.sgm.model.enums.ImportStatusEnum;
 import com.matheusfelixr.sgm.repository.ImportMailingFileRepository;
-import com.matheusfelixr.sgm.model.domain.ImportMailingFile;
-import com.matheusfelixr.sgm.model.domain.MailingType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -37,7 +37,7 @@ public class ImportMailingFileService {
         importMailingFile.setStartDate(new Date());
 
         try {
-            if(multipartFile.isEmpty()){
+            if (multipartFile.isEmpty()) {
                 throw new ValidationException("Arquivo não encontrado");
             }
             importMailingFile.setFile(multipartFile.getBytes());
@@ -47,7 +47,7 @@ public class ImportMailingFileService {
 
             Optional<MailingType> mailingType = this.mailingTypeService.existLayoutByMultipartFile(multipartFile);
 
-            if(!mailingType.isPresent()){
+            if (!mailingType.isPresent()) {
                 throw new ValidationException("Layout não encontrado. Verifique o arquivo caso o erro permaneça contate o desenvolvedor.");
             }
 
@@ -59,36 +59,36 @@ public class ImportMailingFileService {
             importMailingFile.setEndDate(new Date());
             ret = this.save(importMailingFile);
             return ret;
-        }catch (ValidationException e){
+        } catch (ValidationException e) {
             e.printStackTrace();
             importMailingFile.setError(e.getMessage());
             importMailingFile.setEndDate(new Date());
             importMailingFile.setImportStatusEnum(ImportStatusEnum.FAIL);
             this.save(importMailingFile);
-            if(importMailingFile.getId() != null){
+            if (importMailingFile.getId() != null) {
                 this.cancel(importMailingFile.getId(), "Erro ao gerar import de arquivo", currentUser);
             }
             throw new ValidationException(e.getMessage());
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             importMailingFile.setError(e.getMessage());
             importMailingFile.setEndDate(new Date());
             importMailingFile.setImportStatusEnum(ImportStatusEnum.FAIL);
             this.save(importMailingFile);
-            if(importMailingFile.getId() != null){
+            if (importMailingFile.getId() != null) {
                 this.cancel(importMailingFile.getId(), "Erro ao gerar import de arquivo", currentUser);
             }
             throw new ValidationException("Erro ao importar arquivo");
         }
     }
 
-    public ImportMailingFile save(ImportMailingFile importMailingFile){
+    public ImportMailingFile save(ImportMailingFile importMailingFile) {
         return importMailingFileRepository.save(importMailingFile);
     }
 
     public List<ImportMailingFile> findAll() throws Exception {
         List<ImportMailingFile> all = importMailingFileRepository.findAll();
-        all.forEach(a-> a.setFile(null));
+        all.forEach(a -> a.setFile(null));
         return all;
     }
 
@@ -111,15 +111,15 @@ public class ImportMailingFileService {
 
         importMailingFile.get().getCancellation().markCanceled(observationCancel, currentUser);
         importMailingFile.get().getDataControl().markModified(currentUser);
-        mailingLayout1Service.cancelByImportMailingFile(importMailingFile.get(), currentUser,  observationCancel );
+        mailingService.cancelByImportMailingFile(importMailingFile.get(), currentUser, observationCancel);
         return this.save(importMailingFile.get());
     }
 
     private void validateCancel(Optional<ImportMailingFile> importMailingFile) throws ValidationException {
-        if(!importMailingFile.isPresent()){
+        if (!importMailingFile.isPresent()) {
             throw new ValidationException("Não encontrado import de arquivo com esse id");
         }
-        if(importMailingFile.get().getCancellation().getCancellationDate() != null){
+        if (importMailingFile.get().getCancellation().getCancellationDate() != null) {
             throw new ValidationException("Import de arquivo ja cancelado");
         }
     }
@@ -133,9 +133,9 @@ public class ImportMailingFileService {
         Example<ImportMailingFile> example = Example.<ImportMailingFile>of(importMailingFile, matcher);
         List<ImportMailingFile> importMailingFileEquals = importMailingFileRepository.findAll(example);
 
-        if(!importMailingFileEquals.isEmpty()){
-            for(ImportMailingFile importMailingFileFor :importMailingFileEquals){
-                if(!importMailingFileFor.getCancellation().isCancelled()){
+        if (!importMailingFileEquals.isEmpty()) {
+            for (ImportMailingFile importMailingFileFor : importMailingFileEquals) {
+                if (!importMailingFileFor.getCancellation().isCancelled()) {
                     throw new ValidationException("Arquivo já importado anteriormente");
                 }
 

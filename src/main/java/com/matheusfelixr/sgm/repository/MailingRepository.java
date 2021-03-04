@@ -1,5 +1,6 @@
 package com.matheusfelixr.sgm.repository;
 
+import com.matheusfelixr.sgm.model.domain.ImportMailingFile;
 import com.matheusfelixr.sgm.model.domain.UserAuthentication;
 import com.matheusfelixr.sgm.model.domain.Mailing;
 import com.matheusfelixr.sgm.model.domain.MailingLayout1;
@@ -34,4 +35,6 @@ public interface MailingRepository extends JpaRepository<Mailing, Long> {
     List<Mailing> findBySentToUserIsNullAndMailingStatusIsNullAndDateSentToUserIsNotNullAndCancellationCancellationDateIsNullOrderByDataControlCreateDate();
 
     List<Mailing> findByMailingLayout1(MailingLayout1 mailingLayout1);
+
+    List<Mailing> findByImportMailingFile(ImportMailingFile importMailingFile);
 }
