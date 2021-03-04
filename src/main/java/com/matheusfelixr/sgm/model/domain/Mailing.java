@@ -5,6 +5,8 @@ import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -38,6 +40,10 @@ public class Mailing implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "SENT_TO_USER", referencedColumnName = "ID", nullable = true)
     private UserAuthentication sentToUser;
+
+    @ManyToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "TMAILING_EXPORT_MAILING", joinColumns = @JoinColumn(name = "MAILING", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "EXPORT_MAILING", referencedColumnName = "ID"))
+    private List<ExportMailing> exportMailings;
 
 
     //Layouts vão aqui cada layout novo deve ser adicionado aqui
