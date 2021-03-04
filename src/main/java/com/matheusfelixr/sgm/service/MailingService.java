@@ -250,4 +250,8 @@ public class MailingService {
 
         return this.mailingRepository.findByEndDateBetweenAndCancellationCancellationDateIsNullAndMailingStatusIsNotNull(startDateExport, endDateExport);
     }
+
+    public List<Mailing>  saveAll(List<Mailing> mailings) {
+        return this.mailingRepository.saveAll(mailings);
+    }
 }

@@ -1,5 +1,6 @@
 package com.matheusfelixr.sgm.model.domain;
 
+import com.matheusfelixr.sgm.model.enums.TypeExportedEnum;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -36,8 +37,9 @@ public class ExportMailingFile implements Serializable {
     @Column(name = "END_DATE_EXPORT", nullable = true)
     private Date endDateExport;
 
-    @Column(name = "IS_ALREADY_EXPORTED", columnDefinition = "boolean default false", nullable = false)
-    private Boolean isAlreadyExported;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "TYPE_EXPORTED", nullable = false)
+    private TypeExportedEnum typeExported;
 
     @Column(name = "FILE", nullable = true)
     private byte[] file;
