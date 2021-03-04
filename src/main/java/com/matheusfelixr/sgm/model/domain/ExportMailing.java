@@ -13,7 +13,7 @@ import java.util.List;
 @SequenceGenerator(name = "SEQ_EXPORT_MAILING", sequenceName = "SEQ_EXPORT_MAILING", allocationSize = 1)
 public class ExportMailing implements Serializable {
 
-    private static final long serialVersionUID = -367078151490523860L;
+    private static final long serialVersionUID = -342018151490523860L;
 
     @Id
     @Column(name = "ID")
