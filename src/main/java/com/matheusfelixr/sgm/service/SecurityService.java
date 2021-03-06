@@ -83,7 +83,7 @@ public class SecurityService implements UserDetailsService {
             UserAuthentication userAuthentication = this.userAuthenticationService.findByUserName(authenticateRequestDTO.getUsername()).get();
             //Gera historico
             historyAuthenticationService.generateHistorySucess(userAuthentication, httpServletRequest );
-            return new AuthenticateResponseDTO(userAuthentication.getUserName(), token,userAuthentication.getChangePassword());
+            return new AuthenticateResponseDTO(userAuthentication.getUserName(), token,userAuthentication.getChangePassword(), userAuthentication.getIsAdmin());
         } catch (DisabledException e) {
             historyAuthenticationService.generateHistoryFail(authenticateRequestDTO.getUsername(), httpServletRequest, "Usuário desabilitado");
             throw new ValidationException("Usuário desabilitado");

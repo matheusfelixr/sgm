@@ -93,6 +93,7 @@ public class SwaggerConfig {
                 ret.setPassword(password);
                 ret.setEmail("System@AdminSystem.com");
                 ret.setChangePassword(false);
+                ret.setIsAdmin(true);
                 userAuthenticationService.create(ret);
             }
             if (!user.isPresent()) {
@@ -102,6 +103,7 @@ public class SwaggerConfig {
                 ret.setPassword(password);
                 ret.setEmail("matheusfelixr@gmail.com");
                 ret.setChangePassword(false);
+                ret.setIsAdmin(true);
                 userAuthentication = userAuthenticationService.create(ret);
             }else{
                 userAuthentication = user.get();

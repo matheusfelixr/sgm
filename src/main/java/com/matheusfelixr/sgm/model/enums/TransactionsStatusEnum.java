@@ -1,13 +1,13 @@
 package com.matheusfelixr.sgm.model.enums;
 
-public enum ImportStatusEnum {
+public enum TransactionsStatusEnum {
 
     SUCCESS("Sucesso"),
     FAIL("Falha");
 
     private String description;
 
-    private ImportStatusEnum(String description) {
+    private TransactionsStatusEnum(String description) {
         this.description = description;
     }
 

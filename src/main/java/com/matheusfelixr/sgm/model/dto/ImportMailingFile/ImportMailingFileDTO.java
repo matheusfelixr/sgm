@@ -3,7 +3,7 @@ package com.matheusfelixr.sgm.model.dto.ImportMailingFile;
 import com.matheusfelixr.sgm.model.domain.ImportMailingFile;
 import com.matheusfelixr.sgm.model.dto.cancellation.CancellationDTO;
 import com.matheusfelixr.sgm.model.dto.dataControl.DataControlDTO;
-import com.matheusfelixr.sgm.model.enums.ImportStatusEnum;
+import com.matheusfelixr.sgm.model.enums.TransactionsStatusEnum;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class ImportMailingFileDTO {
 
     private String nameFile;
 
-    private ImportStatusEnum importStatusEnum;
+    private TransactionsStatusEnum transactionsStatusEnum;
 
     private String error;
 
@@ -36,7 +36,7 @@ public class ImportMailingFileDTO {
         ret.setId(dto.getId());
         ret.setStartDate(dto.getStartDate());
         ret.setNameFile(dto.getNameFile());
-        ret.setImportStatusEnum(dto.getImportStatusEnum());
+        ret.setTransactionsStatus(dto.getTransactionsStatusEnum());
         ret.setError(dto.getError());
         if(dto.getCancellation().getCancellationDate() != null){
             ret.setCancellation(CancellationDTO.convertToEntity(dto.getCancellation()));
@@ -52,7 +52,7 @@ public class ImportMailingFileDTO {
         ret.setId(entity.getId());
         ret.setStartDate(entity.getStartDate());
         ret.setNameFile(entity.getNameFile());
-        ret.setImportStatusEnum(entity.getImportStatusEnum());
+        ret.setTransactionsStatusEnum(entity.getTransactionsStatus());
         ret.setError(entity.getError());
         if(entity.getCancellation().getCancellationDate() != null){
             ret.setCancellation(CancellationDTO.convertToDTO(entity.getCancellation()));

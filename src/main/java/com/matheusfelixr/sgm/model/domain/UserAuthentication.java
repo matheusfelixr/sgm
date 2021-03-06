@@ -27,6 +27,9 @@ public class UserAuthentication {
     @Column(name = "CHANGE_PASSWORD", nullable = false)
     private Boolean changePassword;
 
+    @Column(name = "IS_ADMIN", nullable = false)
+    private Boolean isAdmin;
+
     public String[] getRoles() {
         return new String[]{"USER"};
     }

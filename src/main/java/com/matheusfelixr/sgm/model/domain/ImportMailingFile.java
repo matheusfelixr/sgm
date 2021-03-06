@@ -1,6 +1,6 @@
 package com.matheusfelixr.sgm.model.domain;
 
-import com.matheusfelixr.sgm.model.enums.ImportStatusEnum;
+import com.matheusfelixr.sgm.model.enums.TransactionsStatusEnum;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -34,9 +34,9 @@ public class ImportMailingFile implements Serializable {
     @Column(name = "NAME_FILE", nullable = true, length = 9999)
     private String nameFile;
 
-    @Column(name = "IMPORT_STATUS", nullable = false)
+    @Column(name = "TRANSACTIONS_STATUS", nullable = false)
     @Enumerated(EnumType.STRING)
-    private ImportStatusEnum importStatusEnum;
+    private TransactionsStatusEnum transactionsStatus;
 
     @Column(name = "ERROR", nullable = true, length = 9999)
     private String error;

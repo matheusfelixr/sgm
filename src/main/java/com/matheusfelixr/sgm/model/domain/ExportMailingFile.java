@@ -1,5 +1,6 @@
 package com.matheusfelixr.sgm.model.domain;
 
+import com.matheusfelixr.sgm.model.enums.TransactionsStatusEnum;
 import com.matheusfelixr.sgm.model.enums.TypeExportedEnum;
 import lombok.Data;
 
@@ -43,6 +44,13 @@ public class ExportMailingFile implements Serializable {
 
     @Column(name = "FILE", nullable = true)
     private byte[] file;
+
+    @Column(name = "TRANSACTIONS_STATUS", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private TransactionsStatusEnum transactionsStatus;
+
+    @Column(name = "ERROR", nullable = true, length = 9999)
+    private String error;
 
     @ManyToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "exportMailingFiles")
     private List<Mailing> mailings;

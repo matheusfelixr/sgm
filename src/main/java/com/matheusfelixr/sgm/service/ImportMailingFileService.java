@@ -3,7 +3,7 @@ package com.matheusfelixr.sgm.service;
 import com.matheusfelixr.sgm.model.domain.ImportMailingFile;
 import com.matheusfelixr.sgm.model.domain.MailingType;
 import com.matheusfelixr.sgm.model.domain.UserAuthentication;
-import com.matheusfelixr.sgm.model.enums.ImportStatusEnum;
+import com.matheusfelixr.sgm.model.enums.TransactionsStatusEnum;
 import com.matheusfelixr.sgm.repository.ImportMailingFileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -52,7 +52,7 @@ public class ImportMailingFileService {
             }
 
 
-            importMailingFile.setImportStatusEnum(ImportStatusEnum.SUCCESS);
+            importMailingFile.setTransactionsStatus(TransactionsStatusEnum.SUCCESS);
 
             ImportMailingFile ret = this.save(importMailingFile);
             this.mailingService.importMailing(mailingType.get(), multipartFile, ret, currentUser);
@@ -63,7 +63,7 @@ public class ImportMailingFileService {
             e.printStackTrace();
             importMailingFile.setError(e.getMessage());
             importMailingFile.setEndDate(new Date());
-            importMailingFile.setImportStatusEnum(ImportStatusEnum.FAIL);
+            importMailingFile.setTransactionsStatus(TransactionsStatusEnum.FAIL);
             this.save(importMailingFile);
             if (importMailingFile.getId() != null) {
                 this.cancel(importMailingFile.getId(), "Erro ao gerar import de arquivo", currentUser);
@@ -73,7 +73,7 @@ public class ImportMailingFileService {
             e.printStackTrace();
             importMailingFile.setError(e.getMessage());
             importMailingFile.setEndDate(new Date());
-            importMailingFile.setImportStatusEnum(ImportStatusEnum.FAIL);
+            importMailingFile.setTransactionsStatus(TransactionsStatusEnum.FAIL);
             this.save(importMailingFile);
             if (importMailingFile.getId() != null) {
                 this.cancel(importMailingFile.getId(), "Erro ao gerar import de arquivo", currentUser);
@@ -127,7 +127,7 @@ public class ImportMailingFileService {
     public void verifyRegisteredFile(byte[] file) throws Exception {
         ImportMailingFile importMailingFile = new ImportMailingFile();
         importMailingFile.setFile(file);
-        importMailingFile.setImportStatusEnum(ImportStatusEnum.SUCCESS);
+        importMailingFile.setTransactionsStatus(TransactionsStatusEnum.SUCCESS);
 
         ExampleMatcher matcher = ExampleMatcher.matchingAll();
         Example<ImportMailingFile> example = Example.<ImportMailingFile>of(importMailingFile, matcher);
